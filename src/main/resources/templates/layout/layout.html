@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- A�adimos el nameSpace de seguridad de Thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+	<meta charset="UTF-8" />
+	<title th:text="'Spring Boot: MVC + Thymeleaf + Data JPA -' + ${titulo}"></title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">Spring Boot</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="#">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/listar}">Clientes</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<div class="container">
+
+	</div>
+
+
+	<footer th:fragment="footer" class="container">
+		<hr />
+		<p sec:authorize="isAuthenticated()">
+			Usuario Logueado: <span sec:authentication="name"></span> | Roles: <span
+				sec:authentication="principal.authorities"></span>
+		</p>
+		<br />
+		<p>
+			Powered by <a href="https://projects.spring.io/spring-boot">Spring
+				Boot</a> y <a href="http://www.thymeleaf.org">Thymeleaf</a>.
+		</p>
+		<p>Proyecto desarrollado en IDE Eclipse + Spring Plugins(STS
+			Spring Tools) Jose Plasencia 14/02/2020</p>
+		<p>
+			<img th:src="@{/images/Spring.png}" alt="Spring logo" />
+		</p>
+
+		<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+
+		<!-- Liberer�a de Jquery.js -->
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+
+	</footer>
+</body>
+
+</html>
