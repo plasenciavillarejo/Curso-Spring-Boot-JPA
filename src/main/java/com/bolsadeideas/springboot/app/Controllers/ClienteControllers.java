@@ -29,7 +29,7 @@ import com.bolsadeideas.springboot.app.models.service.IClientService;
 public class ClienteControllers {
 
 
-// sInyectamos de forma directa el clienteService el cual se usa para el método fachada, de forma que no se accede de forma
+// Inyectamos de forma directa el clienteService el cual se usa para el método fachada, de forma que no se accede de forma
 //	directa a los métodos DAO
 	@Autowired
 	private IClientService clienteService;
