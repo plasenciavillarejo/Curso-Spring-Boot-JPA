@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- A�adimos el nameSpace de seguridad de Thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title class="btn btn-success btn-xs" th:text="${titulo}">Formulario</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+			integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Spring Boot</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/listar}">Clientes</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<h1 class="text-primary border border-success border-top-0 border-left-0" th:text="${titulo}"> </h1>
+
+		<!-- Otra forma de mostrar los erorres cuando se deja algun campo vacio en el formulario. -->
+		<div th:object="${cliente}" th:remove="tag">
+			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+		<!-- Realizamos un bucle con thymeleaf para todos los campos  -->
+				<li th:each="error: ${#fields.errors('*')}" th:text="${error}"> </li>
+			</ul>
+		
+		</div>
+		
+		<form th:action="@{/form}" th:object="${cliente}" method="post">
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Nombre</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{nombre}" class="form-control" th:errorsClass="'form-control alert-danger'"/>
+					<!-- Mostramos el mensaje de eror en caso de que falle -->
+					<small class="form-text text-danger " th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Apellido</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{apellido}" class="form-control" th:errorsClass="'form-control alert-danger'" />
+					<!-- Mostramos el mensaje de eror en caso de que falle -->
+					<small class="form-text text-danger " th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Email</label>
+				<div class="col-sm-6">
+					<input type="email" th:field="*{email}" class="form-control" th:errorsClass="'form-control alert-danger'"/>
+					<!-- Mostramos el mensaje de eror en caso de que falle -->
+					<small class="form-text text-danger " th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Fecha</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{createAt}" class="form-control" th:errorsClass="'form-control alert-danger'"/>
+					<!-- Mostramos el mensaje de eror en caso de que falle -->
+					<small class="form-text text-danger " th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
+
+
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<input type="submit" value="Crear Cliente" class="btn btn-primary" />
+
+			</div>
+
+			<!--Quitamos el método del ID para meter sesiones (ClienteController.java) -->
+			<!-- <input type="hidden" th:field="*{id}" /> -->
+
+		</form>
+	</div>
+</body>
+
+</html>
