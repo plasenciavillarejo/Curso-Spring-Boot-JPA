@@ -2,67 +2,45 @@
 <!-- A�adimos el nameSpace de seguridad de Thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head></head>
-<meta charset="UTF-8" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
+<head th:replace="layout/layout :: head"> </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Spring Boot</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/listar}">Clientes</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="container">
-	<h1 class="text-primary border border-success border-top-0 border-left-0 " th:text="${titulo}"> </h1>
-	
-	<!-- Creamos el link para crear un cliente-->	
-	<p><a class="btn btn-success btn-xs" th:href="@{/form}"> Crear Cliente </a></p>
-	
-					<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Nombre</th>
-							<th>Apellido</th>
-							<th>Email</th>
-							<th>Fecha</th>
-			<!-- Metodo para editar el cliente -->
-							<th>Editar</th>
-							<th>Eliminar</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="cliente: ${clientes}">
-							<td th:text="${cliente.id}"></td>
-							<td th:text="${cliente.nombre}"></td>
-							<td th:text="${cliente.apellido}"></td>
-							<td th:text="${cliente.email}"></td>
-							<td th:text="${cliente.createAt}"></td>
-			<td><a class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.id}" th:text="'editar'"></a></td>
-							<td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${cliente.id}" 
-							th:text="'eliminar'" onclick="return confirm('Estás Seguro que quieres eliminar el Cliente')"></a></td>
-						</tr>
-					</tbody>
-				</table>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+	<header th:replace="layout/layout :: header"></header>
 
+	<h1 class="text-primary border border-success border-top-0 border-left-0 " th:text="${titulo}"> </h1>
+
+	<!-- Creamos el link para crear un cliente-->
+	<p><a class="btn btn-success btn-xs" th:href="@{/form}"> Crear Cliente </a></p>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Email</th>
+				<th>Fecha</th>
+				<!-- Metodo para editar el cliente -->
+				<th>Editar</th>
+				<th>Eliminar</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="cliente: ${clientes}">
+				<td th:text="${cliente.id}"></td>
+				<td th:text="${cliente.nombre}"></td>
+				<td th:text="${cliente.apellido}"></td>
+				<td th:text="${cliente.email}"></td>
+				<td th:text="${cliente.createAt}"></td>
+				<td><a class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.id}" th:text="'editar'"></a></td>
+				<td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${cliente.id}" th:text="'eliminar'"
+						onclick="return confirm('Estás Seguro que quieres eliminar el Cliente')"></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<footer th:replace="layout/layout :: footer"> </footer>
 </body>
+
 </html>
