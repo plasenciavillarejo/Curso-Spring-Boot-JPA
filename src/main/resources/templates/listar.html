@@ -7,6 +7,7 @@
 <body>
 
 	<header th:replace="layout/layout :: header"></header>
+
 	<h1 class="text-primary border border-success border-top-0 border-left-0 " th:text="${titulo}"> </h1>
 
 	<!-- Creamos el link para crear un cliente-->
@@ -25,6 +26,7 @@
 				<th>Eliminar</th>
 			</tr>
 		</thead>
+		
 		<tbody>
 			<tr th:each="cliente: ${clientes}">
 				<td th:text="${cliente.id}"></td>
@@ -38,6 +40,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<footer th:fragment="layout/layout :: footer"> </footer>
+	<footer th:replace="layout/layout :: footer"> </footer>
 </body>
+
 </html>

@@ -40,10 +40,7 @@
 
 	<footer th:fragment="footer" class="container">
 		<hr />
-		<p sec:authorize="isAuthenticated()">
-			Usuario Logueado: <span sec:authentication="name"></span> | Roles: <span
-				sec:authentication="principal.authorities"></span>
-		</p>
+		<img th:src="@{/images/spring.png}" alt="Spring Logo" />
 		<br />
 		<p>
 			Powered by <a href="https://projects.spring.io/spring-boot">Spring
