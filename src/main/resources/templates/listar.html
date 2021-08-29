@@ -48,10 +48,15 @@
 							th:href="@{/form/} + ${cliente.id}" th:text="'editar'"></a></td>
 						<td><a class="btn btn-danger btn-xs"
 							th:href="@{/eliminar/} + ${cliente.id}" th:text="'eliminar'"
-							onclick="return confirm('Estás Seguro que quieres eliminar el Cliente')"></a></td>
+							onclick="return confirm('Estas Seguro que quieres eliminar el Cliente')"></a></td>
 					</tr>
 				</tbody>
 			</table>
+		<!--  Anadimos el fragmento del paginador. -->	
+			<nav th:replace="paginator-nav :: paginator">
+			
+			</nav>
+			
 		</div>
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>

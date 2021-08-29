@@ -2,9 +2,9 @@ package com.bolsadeideas.springboot.app.models.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
-
-
 
 /* Patron de diseño : Facade
 
@@ -20,6 +20,12 @@ public interface IClientService {
 	/* Listar todos los clientes. */
 	 public List<Cliente> findall();
 
+	/* Método de la paginación para un cliente
+	  	Importamos Pageable = org.springframework.data.domain.Pageable
+	  	Retornamos un Page */
+	 
+	 public Page<Cliente> findall(Pageable pageable);
+	 
 	 /* Gurdar  y Modificar un cliente. */
 	 public void save(Cliente cliente);
 

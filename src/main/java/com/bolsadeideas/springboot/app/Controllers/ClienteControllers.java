@@ -5,18 +5,23 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.service.IClientService;
+import com.bolsadeideas.springboot.app.util.paginator.PageRender;
 
 @Controller
 /*
@@ -36,12 +41,30 @@ public class ClienteControllers {
 	private IClientService clienteService;
 
 	/* ----------------------------------------------------------------------- */
-	/* Listar Cliente: */
+	/* Listar Cliente: 
+	  	Queremos obtener el Page la página actual, página '0', '1', '2', etc ...*/
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
-	public String Listar(Model model) {
+	public String Listar(@RequestParam(name="page",defaultValue = "0") int page, Model model) {
+		
+	/* Lo hacemos de la forma estática, Pageable pageRequest  = new ... (Está Deprecated)
+	 	size= Cantidad registros que queremos mostrar por cada página. (Indico 4 Registro por página) */	
+		Pageable pageRequest = PageRequest.of(page, 5);
+		
+	/* Llamamos al método Page de la clase ClientesServiceImple.java y le pasamos el valor recogido pageRequest
+	 	De modo que obtendemos la lísta paginada de cliente con este método.*/
+		Page<Cliente> clientes = clienteService.findall(pageRequest);
+	
+		
+	/* Creamos el PageRender
+	 	Sirve para desplazarnos entre páginas.*/	
+		PageRender<Cliente> pageRender = new PageRender<>("/listar", clientes);
+		
 		model.addAttribute("titulo", "Listado de clientes");
-		model.addAttribute("clientes", clienteService.findall());
+	/* Pasamos como párametro los cliente obtenidos por cada página.*/
+		model.addAttribute("clientes", clientes);
+	/* Pasamoa a la vista nuestro PageRender*/
+		model.addAttribute("page", pageRender);
 		return "listar";
 	}
 	/* ----------------------------------------------------------------------- */
