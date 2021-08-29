@@ -2,45 +2,59 @@
 <!-- A�adimos el nameSpace de seguridad de Thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout/layout :: head"> </head>
+<head th:replace="layout/layout :: head">
+</head>
 
 <body>
 
 	<header th:replace="layout/layout :: header"></header>
-
-	<h1 class="text-primary border border-success border-top-0 border-left-0 " th:text="${titulo}"> </h1>
-
-	<!-- Creamos el link para crear un cliente-->
-	<p><a class="btn btn-success btn-xs" th:href="@{/form}"> Crear Cliente </a></p>
-
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Nombre</th>
-				<th>Apellido</th>
-				<th>Email</th>
-				<th>Fecha</th>
-				<!-- Metodo para editar el cliente -->
-				<th>Editar</th>
-				<th>Eliminar</th>
-			</tr>
-		</thead>
+	
+	<!-- Py-4 : Nos da un margen de ancchura en el "listado de clientes". -->
+	<div class="container py-4">
 		
-		<tbody>
-			<tr th:each="cliente: ${clientes}">
-				<td th:text="${cliente.id}"></td>
-				<td th:text="${cliente.nombre}"></td>
-				<td th:text="${cliente.apellido}"></td>
-				<td th:text="${cliente.email}"></td>
-				<td th:text="${cliente.createAt}"></td>
-				<td><a class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.id}" th:text="'editar'"></a></td>
-				<td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${cliente.id}" th:text="'eliminar'"
-						onclick="return confirm('Estás Seguro que quieres eliminar el Cliente')"></a></td>
-			</tr>
-		</tbody>
-	</table>
-	<footer th:replace="layout/layout :: footer"> </footer>
+		<!-- bg-light: Le da un fondo de color a la tabla grisaceo -->
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+			<!-- Creamos el link para crear un cliente-->
+			<h4 class="card-title">
+				<a class="btn btn-primary btn-xs" th:href="@{/form}"> Crear
+					Cliente </a>
+			</h4>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Email</th>
+						<th>Fecha</th>
+						<!-- Metodo para editar el cliente -->
+						<th>Editar</th>
+						<th>Eliminar</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="cliente: ${clientes}">
+						<td th:text="${cliente.id}"></td>
+						<td th:text="${cliente.nombre}"></td>
+						<td th:text="${cliente.apellido}"></td>
+						<td th:text="${cliente.email}"></td>
+						<td th:text="${cliente.createAt}"></td>
+						<td><a class="btn btn-primary btn-xs"
+							th:href="@{/form/} + ${cliente.id}" th:text="'editar'"></a></td>
+						<td><a class="btn btn-danger btn-xs"
+							th:href="@{/eliminar/} + ${cliente.id}" th:text="'eliminar'"
+							onclick="return confirm('Estás Seguro que quieres eliminar el Cliente')"></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
 </body>
 
 </html>
