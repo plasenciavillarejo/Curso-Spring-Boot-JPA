@@ -23,7 +23,6 @@ public interface IClientService {
 	/* Método de la paginación para un cliente
 	  	Importamos Pageable = org.springframework.data.domain.Pageable
 	  	Retornamos un Page */
-	 
 	 public Page<Cliente> findall(Pageable pageable);
 	 
 	 /* Gurdar  y Modificar un cliente. */
