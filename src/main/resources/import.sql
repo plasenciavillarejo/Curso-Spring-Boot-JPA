@@ -37,7 +37,7 @@ INSERT INTO productos (nombre, precio, create_at) VALUES('zcvadq', 259745, NOW()
 INSERT INTO productos (nombre, precio, create_at) VALUES('Pokemon destripador', 259745, NOW());
 INSERT INTO productos (nombre, precio, create_at) VALUES('Packa Dell 123 jos', 259745, NOW());
 
-/* Populate tabla Factura*/ 
+/* aPopulate tabla Factura*/ 
 /*INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,1, NOW()); 
 
 INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(1,1,1);

@@ -29,7 +29,7 @@ public class Producto implements Serializable {
 	@Column(name = "create_at")
 	private Date createAt;
 
-/* Se encarga de generar la fecha. */
+/* Se encrga de generar la fecha. */
 	@PrePersist
 	public void prePresist() {
 		createAt = new Date();

@@ -31,7 +31,7 @@ public class ItemFactura implements Serializable{
 	private Producto producto;
 	
 	
-/* Método para calcular el Importe. */	
+/* Metodo para calcular el Importe. */	
 	public Double calcularImporte() {
 		return cantidad.doubleValue()* producto.getPrecio();
 	}

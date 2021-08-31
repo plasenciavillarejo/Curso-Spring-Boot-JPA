@@ -47,7 +47,7 @@ public class Cliente implements Serializable {
 	@Temporal(TemporalType.DATE)
 
 	/*
-	 * Vamos a modicar el campo createAt para que acepte cualquier tipo de fecha y
+	  Vamos a modicar el campo createAt para que acepte cualquier tipo de fecha y
 	 * no de error.
 	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
