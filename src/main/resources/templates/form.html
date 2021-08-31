@@ -3,77 +3,94 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-<head th:replace="layout/layout :: head"> </head>
+<head th:replace="layout/layout :: head">
+</head>
 
 <body>
 
 	<header th:replace="layout/layout :: header"></header>
 
 
-	<div class="container">
-		<h1 class="text-primary border border-success border-top-0 border-left-0" th:text="${titulo}"> </h1>
+	<div class="container py-4">
 
-		<!-- Otra forma de mostrar los erorres cuando se deja algun campo vacio en el formulario. -->
-		<div th:object="${cliente}" th:remove="tag">
-			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-		<!-- Realizamos un bucle con thymeleaf para todos los campos  -->
-				<li th:each="error: ${#fields.errors('*')}" th:text="${error}"> </li>
-			</ul>
-		
+		<!-- bg-light: Le da dun fondo de color azul turquesa y letras blancas -->
+		<div class="card bg-info text-white">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+
+				<!-- Otra forma de mostrar los erorres cuando se deja algun campo vacio en el formulario. -->
+				<div th:object="${cliente}" th:remove="tag">
+					<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+						<!-- Realizamos un bucle con thymeleaf para todos los campos  -->
+						<li th:each="error: ${#fields.errors('*')}" th:text="${error}">
+						</li>
+					</ul>
+
+				</div>
+
+				<form th:action="@{/form}" th:object="${cliente}" method="post">
+				
+					<div class="form-group row py-2">
+						<label class="col-sm-2 col-form-label">Nombre</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{nombre}" class="form-control"
+								th:errorsClass="'form-control alert-danger'" />
+							<!-- Mostramos el mensaje de eror en caso de que falle -->
+							<small class="form-text text-danger "
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row py-2">
+						<label class="col-sm-2 col-form-label">Apellido</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{apellido}" class="form-control"
+								th:errorsClass="'form-control alert-danger'" />
+							<!-- Mostramos el mensaje de eror en caso de que falle -->
+							<small class="form-text text-danger "
+								th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row py-2">
+						<label class="col-sm-2 col-form-label">Email</label>
+						<div class="col-sm-6">
+							<input type="email" th:field="*{email}" class="form-control"
+								th:errorsClass="'form-control alert-danger'" />
+							<!-- Mostramos el mensaje de eror en caso de que falle -->
+							<small class="form-text text-danger "
+								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+
+						</div>
+					</div>
+
+					<div class="form-group row py-2">
+						<label class="col-sm-2 col-form-label">Fecha</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{createAt}" class="form-control"
+								th:errorsClass="'form-control alert-danger'" />
+							<!-- Mostramos el mensaje de eror en caso de que falle -->
+							<small class="form-text text-danger "
+								th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
+
+
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<input type="submit" value="Crear Cliente" class="btn btn-secondary" />
+
+					</div>
+
+					<!--Quitamos el método del ID para meter sesiones (ClienteController.java) -->
+					<!-- <input type="hidden" th:field="*{id}" /> -->
+
+				</form>
+			</div>
 		</div>
-		
-		<form th:action="@{/form}" th:object="${cliente}" method="post">
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Nombre</label>
-				<div class="col-sm-6">
-					<input type="text" th:field="*{nombre}" class="form-control" th:errorsClass="'form-control alert-danger'"/>
-					<!-- Mostramos el mensaje de eror en caso de que falle -->
-					<small class="form-text text-danger " th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Apellido</label>
-				<div class="col-sm-6">
-					<input type="text" th:field="*{apellido}" class="form-control" th:errorsClass="'form-control alert-danger'" />
-					<!-- Mostramos el mensaje de eror en caso de que falle -->
-					<small class="form-text text-danger " th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Email</label>
-				<div class="col-sm-6">
-					<input type="email" th:field="*{email}" class="form-control" th:errorsClass="'form-control alert-danger'"/>
-					<!-- Mostramos el mensaje de eror en caso de que falle -->
-					<small class="form-text text-danger " th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
-
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Fecha</label>
-				<div class="col-sm-6">
-					<input type="text" th:field="*{createAt}" class="form-control" th:errorsClass="'form-control alert-danger'"/>
-					<!-- Mostramos el mensaje de eror en caso de que falle -->
-					<small class="form-text text-danger " th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
-
-
-				</div>
-			</div>
-
-			<div class="col-sm-6">
-				<input type="submit" value="Crear Cliente" class="btn btn-primary" />
-
-			</div>
-
-			<!--Quitamos el método del ID para meter sesiones (ClienteController.java) -->
-			<!-- <input type="hidden" th:field="*{id}" /> -->
-
-		</form>
 	</div>
 	<footer th:replace="layout/layout :: footer"> </footer>
-
 </body>
 
 </html>
