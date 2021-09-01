@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<!-- A�adimos el nameSpace de seguridad de Thymeleaf -->
+<!-- A?adimos el nameSpace de seguridad de Thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <!-- Vamos a ordernar la plantilla, llamando al layout mediante el th:thymeleaf -->
+
 <head th:replace="layout/layout :: head"></head>
+
 <body>
 
 	<header th:replace="layout/layout :: header"></header>
@@ -15,25 +17,12 @@
 		<div class="card bg-light">
 			<div class="card-header" th:text="${titulo}"></div>
 			<div class="clard-body">
-			
-			
-			<h4 class="card-title">
-				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success btn-xs" th:href="@{'/factura/form/' + ${cliente.id}}"
-				th:text="'crear factura'"></a>
-			</h4>
-		
-				<!--  Poniendo @ decimos que accedemos al metodo usando thymeleaf	 -->
-				<!-- Validamos que si no existe la foto no la muestre al visualizar los detalles del cliente.	 -->
-				<img th:if="${#strings.length(cliente.foto) > 0}"
-					class="img-thumbnail rounded float-left" style="max-width: 25%;"
-					th:src="@{'/upload/' + ${cliente.foto}}" th:alt="${cliente.foto}" />
-				<!-- Usamos un metodo de thymeleaf que comprueba el largo de la foto, si es mayor que 0 es que tiene foto por tanto la muestra.		 -->
-				<ul class="list-group">
-					<li class="list-group-item" th:text="${cliente.nombre}"></li>
-					<li class="list-group-item" th:text="${cliente.apellido}"></li>
-					<li class="list-group-item" th:text="${cliente.email}"></li>
-					<li class="list-group-item" th:text="${cliente.createAt}"></li>
-				</ul>
+
+
+				<h4 class="card-title py-4">
+					<a class="btn btn-primary btn-xs" th:href="@{'/factura/form/' + ${cliente.id}}"
+						th:text="' Crear Factura '"></a>
+				</h4>
 
 
 				<!-- 	La idea es mostrar todas las facturas asociadas al cliente mediante una tabla -->
@@ -67,7 +56,7 @@
 							<td th:text="${factura.total}"></td>
 							<td><a class="btn btn-primary btn-xs" th:href="@{'/factura/ver/' + ${factura.id}}" th:text="'detalle'"></a></td>
 							<td><a class="btn btn-primary btn-xs" th:href="@{'/factura/eliminar/' + ${factura.id}}" 
-								th:text="'eliminar'" onclick="return confirm('�Est�s seguro que desea eliminar la factura?')"></a></td>
+								th:text="'eliminar'" onclick="return confirm('?Est?s seguro que desea eliminar la factura?')"></a></td>
 						</tr>
 					</tbody>
 				</table>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
+import com.bolsadeideas.springboot.app.models.entity.Producto;
 
 /* Patron de diseño : Facade
 
@@ -34,5 +35,7 @@ public interface IClientService {
 	 /* Eliminar CLiete*/
 	 public void delete (long id);
 	
+	 public List<Producto> finByNombre(String term);
+	 
 
 }

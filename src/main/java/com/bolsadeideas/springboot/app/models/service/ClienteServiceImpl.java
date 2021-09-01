@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bolsadeideas.springboot.app.models.dao.IClienteDao;
+import com.bolsadeideas.springboot.app.models.dao.IProductoDao;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
+import com.bolsadeideas.springboot.app.models.entity.Producto;
 
 
 @Service
@@ -21,7 +23,9 @@ public class ClienteServiceImpl implements IClientService{
 	@Autowired
 	private IClienteDao clienteDao;
 
-	
+	@Autowired
+	private IProductoDao productoDao;
+		
 	@Override
 	@Transactional(readOnly = true)
 	public List<Cliente> findall() {
@@ -51,6 +55,11 @@ public class ClienteServiceImpl implements IClientService{
 	@Transactional(readOnly= true)
 	public Page<Cliente> findall(Pageable pageable) {
 		return clienteDao.findAll(pageable);
+	}
+
+	@Override
+	public List<Producto> finByNombre(String term) {
+		return productoDao.findByNombre(term);
 	}
 
 	

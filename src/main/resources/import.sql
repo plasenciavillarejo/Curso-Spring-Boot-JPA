@@ -37,15 +37,36 @@ INSERT INTO productos (nombre, precio, create_at) VALUES('zcvadq', 259745, NOW()
 INSERT INTO productos (nombre, precio, create_at) VALUES('Pokemon destripador', 259745, NOW());
 INSERT INTO productos (nombre, precio, create_at) VALUES('Packa Dell 123 jos', 259745, NOW());
 
-/* aPopulate tabla Factura*/ 
-/*INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,1, NOW()); 
+/* Primera Factura*/ 
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,1, NOW()); 
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura de Golosinas', null,2, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de ordernador', null,3, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de mesa', null,4, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de ping pong', null,5, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de carteles de agua', null,6, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,7, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,8, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,9, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,10, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,11, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,12, NOW());
+
+
+/* 2 Factura.*/
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura Bicicleta', 'Alguna nota importante',1, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura Moto', 'Alguna nota importante',2, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura Coche', 'Alguna nota importante',3, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura PC', 'Alguna nota importante',4, NOW());
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura Letra Piso', 'Alguna nota importante',5, NOW());
+
 
 INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(1,1,1);
-
-INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(2,1,4);
-INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(1,1,5);
-INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(1,1,7);
-
-INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura Bicicleta', 'Alguna nota importante',1, NOW());
-INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(3,2,6);*/
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(2,2,4);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(8,3,5);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(3,4,7);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(4,5,1);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(5,6,1);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(6,7,1);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(7,8,1);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(3,2,6);
 
