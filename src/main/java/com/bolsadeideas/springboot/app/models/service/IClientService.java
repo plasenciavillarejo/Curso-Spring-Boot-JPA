@@ -35,6 +35,7 @@ public interface IClientService {
 	 /* Eliminar CLiete*/
 	 public void delete (long id);
 	
+	 /* Lista un Producto del cliente. */
 	 public List<Producto> finByNombre(String term);
 	 
 

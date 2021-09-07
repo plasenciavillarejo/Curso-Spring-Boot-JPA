@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- A?adimos el nameSpace de seguridad de Thymeleaf -->
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <!-- Vamos a ordernar la plantilla, llamando al layout mediante el th:thymeleaf -->
 
@@ -19,21 +19,24 @@
 
 				<!-- Flecha para volver hacía atra de la página. -->
 				<h4 class="py-3">
-					<a class="btn btn-primary" th:href="@{'/ver/' + ${factura.cliente.id}}"
+					<a class="btn btn-primary"
+						th:href="@{'/ver/' + ${factura.cliente.id}}"
 						th:text="'&laquo; volver'"></a>
 				</h4>
 
 				<!-- 	Se va a ir a la direccion @/factura/form -->
 				<!-- 		va a estar mapeado al objeto factura del metodo post		 -->
 				<!-- Añadimos el name para que la vista js pueda coger bien el formulario -->
-				<form name="formFactura" th:action="@{/factura/form}" th:object="${factura}" method="post">
+				<form name="formFactura" th:action="@{/factura/form}"
+					th:object="${factura}" method="post">
 
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" th:text="'Cliente'"></label>
 						<div class="col-sm-6">
 							<!-- Nombre del cliente		 -->
-							<input th:value="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}"
-								class=" form-control" disabled="'disabled" />
+							<input
+								th:value="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}"
+								class=" form-control" disabled="'disabled'" />
 						</div>
 					</div>
 
@@ -54,15 +57,39 @@
 					<!-- Vamos a implementar el autocomplete -->
 
 					<div class="form-group row">
-						<label for="buscar_producto" class="col-sm-2 col-form-label" th:text="'Buscar Producto'"></label>
+						<label for="buscar_producto" class="col-sm-2 col-form-label"
+							th:text="'Buscar Producto'"></label>
 						<div class="col-sm-6">
-							<input type="text" name="buscar_producto" id="buscar_producto" class="form-control" />
+							<input type="text" name="buscar_producto" id="buscar_producto"
+								class="form-control" />
 						</div>
 					</div>
 
+					<!-- Agregamos plantilla-items.html -->
+
+					<table th:replace="factura/plantilla-items.html :: itemsFactura"></table>
+					
+					
+					<!-- Vamos al autocomplete-productos.html la cual hace referencia a cargarItemProductos -->
+					<table id="cargarItemProductos"
+						class="table table-sm table-striped table-hover">
+						<!--  Columnas -->
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+
 					<div class="form-group row py-3">
 						<div class="col-sm-6">
-							<input type="submit" th:value=" ${titulo}" class="btn btn-secondary" />
+							<input type="submit" th:value=" ${titulo}"
+								class="btn btn-secondary" />
 						</div>
 					</div>
 

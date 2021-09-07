@@ -13,4 +13,9 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	@Query("select p from Producto p where nombre like %?1%")
 	public List<Producto> findByNombre(String term);
 	
+	/*	2º Forma de buscarlo.
+	 	 No estoy usando el método ya que en el ClienteSErvice devuelve el producto.finByNombre(String term)*/
+	
+	//public List<Producto> findByNombreLikeIgnoresCase(String term);
+	
 }

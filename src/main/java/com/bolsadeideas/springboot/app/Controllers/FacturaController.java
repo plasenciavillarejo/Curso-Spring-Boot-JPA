@@ -55,6 +55,13 @@ public class FacturaController {
 	
 	/* ----------------------------------------------------------------------- */
 	
+	/*
+		- Mapping donde se carga la vista = /cargar-productos/{1} donde 1 indica que es el producto 1.
+		 	/cargar-productos lo hemos indicado en el templates/factura/js/autocomplete-productos.html , url= /factura/cargar-productos/" + request.term
+		- Genera una salida (produces) de aplication/json
+		- @PathVariable, recibe una variable String term.
+		- @ResponseBody, transforma la salida en json y la guarda dentro del body de la respuesta.
+	*/
 	
 	@GetMapping(value="/cargar-productos/{term}", produces = {"application/json"})
 	public @ResponseBody List<Producto> cargarProductos(@PathVariable String term){

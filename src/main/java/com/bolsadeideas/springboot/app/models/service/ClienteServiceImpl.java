@@ -56,10 +56,14 @@ public class ClienteServiceImpl implements IClientService{
 	public Page<Cliente> findall(Pageable pageable) {
 		return clienteDao.findAll(pageable);
 	}
-
+	
+	
 	@Override
 	public List<Producto> finByNombre(String term) {
 		return productoDao.findByNombre(term);
+	
+		/* 2º Forma de buscarlo.	 	
+		return productoDao.findByNombreLikeIgnoresCase(term);*/
 	}
 
 	

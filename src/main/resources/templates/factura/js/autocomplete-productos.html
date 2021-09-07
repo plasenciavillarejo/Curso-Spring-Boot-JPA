@@ -28,7 +28,20 @@
 			});
 		},
 		select: function(event, ui){
-			$("buscar_producto").val(ui.item.label);
+			//$("buscar_producto").val(ui.item.label);
+			
+			/* Recibimos el id de la vista plantilla-items.html -> plantillaItemsFactura
+				.html() = invoca el método html en este caso el tbody */
+			var linea = $("#plantillaItemsFactura").html();
+			
+			/*	Reemplazamos Id, Nombre y Precio por el valor. */
+			linea = linea.replace(/{ID}/g, ui.item.value);
+			linea = linea.replace(/{NOMBRE}/g, ui.item.label);
+			linea = linea.replace(/{PRECIO}/g, ui.item.precio);
+			
+			/* Ahora cargamos está línea a cargarItemProductos del tbody*/
+			$("#cargarItemProductos tbody").append(linea);
+			
 			return false;
 		},
 		focus: function(event, ui){
