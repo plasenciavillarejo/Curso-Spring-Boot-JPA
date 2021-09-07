@@ -42,6 +42,8 @@
 			/* Ahora cargamos está línea a cargarItemProductos del tbody*/
 			$("#cargarItemProductos tbody").append(linea);
 			
+			itemsHelper.calcularImporte(ui.item.value,ui.item.precio, 1);
+			
 			return false;
 		},
 		focus: function(event, ui){
@@ -49,8 +51,16 @@
 		    $('input[name="buscar_producto"]').val(ui.item.label);
 		   },
 	});
-}
-);
+});
+ 
+ /* Vamos a calcular el Importe */
+ var itemsHelper = {
+		 calcularImporte: function(id,precio,cantidad){
+			 $("#total_importe_" + id).html(parseInt(precio) * parseInt(cantidad));
+		 }
+		 
+ }
+ 
 	</script>
 
 </body>
