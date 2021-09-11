@@ -60,10 +60,7 @@ public class FacturaController {
 		return "factura/ver";
 	}
 	
-	
-	
-	
-	
+
 	@GetMapping("/form/{clienteId}")
 	public String crear(@PathVariable(value = "clienteId") Long clienteId, Map<String, Object> model,
 			RedirectAttributes flash) {

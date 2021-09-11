@@ -123,7 +123,7 @@ public class ClienteControllers {
 		return "form";
 	}
 
-	/* 2.- Una vez que tenemos el Cliente, realizamos un metodo POST para poder guardarlo */
+	/* 2.- Una vez que tenemos el Cliente en memoría, realizamos un metodo POST para poder guardarlo */
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public String guardar(@Valid Cliente cliente, BindingResult result, Model model,RedirectAttributes flash ,
 			SessionStatus status) {
