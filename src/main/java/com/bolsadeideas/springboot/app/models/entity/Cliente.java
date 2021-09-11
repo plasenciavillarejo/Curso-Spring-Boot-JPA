@@ -137,4 +137,11 @@ public class Cliente implements Serializable {
 		this.facturas = facturas;
 	}
 
+	@Override
+	public String toString() {
+		return nombre + " " +apellido;
+	}
+
+	
+	
 }

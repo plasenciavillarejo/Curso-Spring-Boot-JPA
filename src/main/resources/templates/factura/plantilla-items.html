@@ -17,6 +17,7 @@
 					id="cantidad_{ID}" class="form-control col-sm-4" onchange="itemsHelper.calcularImporte({ID},{PRECIO}, this.value);"/></td>
 				<!-- Calculamos Precio por la Cantidad. -->
 				<td><span id="total_importe_{ID}">0</span></td>
+				<td><a href="#" class="btn btn-danger btn-xs" onclick="itemsHelper.eliminarLineaFactura({ID});">x</a></td>
 			</tr>
 		</tbody>
 

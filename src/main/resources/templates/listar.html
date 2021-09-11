@@ -19,7 +19,7 @@
 
 			<!-- Creamos el link para crear un cliente-->
 			<h4 class="card-title">
-				<a class="btn btn-primary btn-xs" th:href="@{/form}"> Crear
+				<a class="btn btn-primary btn-sm" th:href="@{/form}"> Crear
 					Cliente </a>
 			</h4>
 
@@ -49,7 +49,7 @@
 						<!-- Mantenemos estructura de Factura Controller, /factura/form y luego el clienteId-->
 						<td><a class="btn btn-success btn-xs" th:href="@{'/factura/form/' + ${cliente.id}}" th:text="' Crear Factura '"></a></td>
 						<td><a class="btn btn-primary btn-xs"
-							th:href="@{/form/} + ${cliente.id}" th:text="'editar'"></a></td>
+							th:href="@{/editar/} + ${cliente.id}" th:text="'editar'"></a></td>
 						<td><a class="btn btn-danger btn-xs"
 							th:href="@{/eliminar/} + ${cliente.id}" th:text="'eliminar'"
 							onclick="return confirm('Estas Seguro que quieres eliminar el Cliente')"></a></td>

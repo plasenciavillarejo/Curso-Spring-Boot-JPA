@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,28 +43,46 @@ public class ClienteControllers {
 	@Autowired
 	private IClientService clienteService;
 
+	/* 1.- Creamos la clase Logger. */
+	private final Logger log = (Logger) LoggerFactory.getLogger(this.getClass());
+	
 	
 	/* ----------------------------------------------------------------------- */
-	/* Ver la factura del cliente*/
+	/* 1.- Ver la factura del cliente
+	   2.- Se usa al pulsar la vista principal al pulsar el ID [1] -> Te redirige a la vista ver.html*/
 	
 	@GetMapping(value="/ver/{id}")
 	public String ver (@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+		
 		Cliente cliente = clienteService.findOne(id);
 		if (cliente==null) {
 			flash.addFlashAttribute("Error", "El cliente no existe en la base de datos");
 			return "redirect:/listar";
 		}
+		log.info("Leyendo clase Listar.");
+		
 		model.put("cliente", cliente);
-		model.put("titulo","Detalle cliente" + cliente.getNombre());
+		model.put("titulo","Detalle cliente: " + cliente.getNombre());
 		return "ver";
 	}
-	
+		
+	/* ----------------------------------------------------------------------- 
+	Listar de forma continuada, sin usar page render // @RequestMapping(value="/listar", method = RequestMethod.GET)
+	@GetMapping(value = "/listar")
+	public String Listar(Model model) {
+		model.addAttribute("titulo", "Listado de Clientes");
+		model.addAttribute("clientes", clienteService.findall());
+		log.info("Leyendo clase Listar.");
+		return "listar";}*/	
 	/* ----------------------------------------------------------------------- */
 	
+	
+	/* ----------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------- */
 	/* Listar Cliente: 
 	  	Queremos obtener el Page la página actual, página '0', '1', '2', etc ...*/
 
-	@RequestMapping(value = "/listar", method = RequestMethod.GET)
+	@RequestMapping(value = {"/listar","/"}, method = RequestMethod.GET)
 	public String Listar(@RequestParam(name="page",defaultValue = "0") int page, Model model) {
 		
 	/* Lo hacemos de la forma estática, Pageable pageRequest  = new ... (Está Deprecated)
@@ -72,7 +92,6 @@ public class ClienteControllers {
 	/* Llamamos al método Page de la clase ClientesServiceImple.java y le pasamos el valor recogido pageRequest
 	 	De modo que obtendemos la lísta paginada de cliente con este método.*/
 		Page<Cliente> clientes = clienteService.findall(pageRequest);
-	
 		
 	/* Creamos el PageRender
 	 	Sirve para desplazarnos entre páginas.*/	
@@ -85,51 +104,29 @@ public class ClienteControllers {
 		model.addAttribute("page", pageRender);
 		return "listar";
 	}
+	
 	/* ----------------------------------------------------------------------- */
-
+	/* ----------------------------------------------------------------------- */
+	
 	/* Crear Cliente: */
 
-	// 1.- Se recibe el objeto cliente,
+	/* 1.- Creamos un cliente.
+	   2.- Cuando accedemos a la vista /form, al crear al cliente, nos redirige a esté metodo del controlador. */
+	
 	@RequestMapping(value = "/form")
 	public String crear(Map<String, Object> model) {
-
+		
 		Cliente cliente = new Cliente();
-
 		/* Pasamos los datos a la vista: */
 		model.put("cliente", cliente);
 		model.put("titulo", "Formulario de Cliente");
 		return "form";
 	}
 
-	/* Editar Cliente: */
-
-	// 2.- Se recibe el objeto cliente para editarlo.
-	@RequestMapping(value = "/form/{id}")
-	public String editar(@PathVariable(value = "id") long id, Map<String, Object> model,RedirectAttributes flash) {
-
-		Cliente cliente = null;
-
-		if (id > 0) {
-			cliente = clienteService.findOne(id);
-			if (cliente == null) {
-				flash.addFlashAttribute("error", "El ID del cliente no existe en la BD!");
-				return "redirect:/listar";
-			}
-		} else {
-			flash.addFlashAttribute("error", "El ID del cliente no puede ser 0!");
-			return "redirect:/listar";
-		}
-
-		// Pasamos los datos a la vista.
-		model.put("cliente", cliente);
-		model.put("titulo", "Editar Cliente");
-
-		return "form";
-	}
-
-	// 3.- Una vez que recibimos el cliente lo guardamos.
+	/* 2.- Una vez que tenemos el Cliente, realizamos un metodo POST para poder guardarlo */
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String guardar(@Valid Cliente cliente, BindingResult result, Model model,RedirectAttributes flash ,SessionStatus status) {
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model,RedirectAttributes flash ,
+			SessionStatus status) {
 
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de Cliente");
@@ -143,9 +140,56 @@ public class ClienteControllers {
 		flash.addFlashAttribute("success", mensajeFlash);
 		return "redirect:listar";
 	}
+	
+	
+	/* ----------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------- */
+		
+	/* 1.- Editamos un cliente.
+	   2.- Cuando accedemos a la vista Editar.html, y pulsamos en el boton "Editar Cliente", nos redirigira
+	   al método  dentro del controlador "guardareditar()" que captura dicha información de la vista*/
+	@RequestMapping(value = "/editar", method = RequestMethod.POST)
+	private String guardareditar(@Valid Cliente cliente, Model model, SessionStatus status, BindingResult result) {
+		/* Validacion */
+
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario Cliente");
+			return "editar";
+		}
+		clienteService.save(cliente);
+		status.setComplete();
+		return "redirect:listar";
+	}
+	
+	/* 2.- Editar un cliente accediendo a la vista creada editar.html */
+
+	@RequestMapping(value = "/editar/{id}")
+	private String edit(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+
+		Cliente cliente = null;
+
+		if (id > 0) {
+			cliente = clienteService.findOne(id);
+			if (cliente == null) {
+				flash.addFlashAttribute("Error", "El cliente no existe en la BD");
+			}
+		} else {
+			flash.addFlashAttribute("Error", "El ID del cliente no puede ser 0.");
+			return "redirect:/listar";
+		}
+
+		/* Pasamos los datos a la vista. */
+		model.put("cliente", cliente);
+		model.put("titulo", "Editar Cliente");
+
+		return "editar";
+	}
+	
+	/* ----------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------- */
 
-	/* Eliminar Cliente. */
+	
+	/* 5.- Eliminar Cliente. */
 
 	@RequestMapping(value = "/eliminar/{id}")
 	public String eliminar(@PathVariable(value = "id") long id, RedirectAttributes flash) {
@@ -155,6 +199,5 @@ public class ClienteControllers {
 			flash.addFlashAttribute("success", "Cliente Eliminado con exito!");
 		}
 		return "redirect:/listar";
-
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
+import com.bolsadeideas.springboot.app.models.entity.Factura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
 
 /* Patron de diseño : Facade
@@ -18,15 +19,18 @@ public interface IClientService {
 		
 	/* Copiamos los métodos definidos en IClientDao.java*/
 
-	/* Listar todos los clientes. */
+	/* Listar todos los clientes de forma continua (No se está usando ahora mismo en el ejmplo, sustituido por Page<Cliente>). */
 	 public List<Cliente> findall();
 
-	/* Método de la paginación para un cliente
-	  	Importamos Pageable = org.springframework.data.domain.Pageable
-	  	Retornamos un Page */
+	/* 1.- Método de la paginación para un cliente
+	   2.- Importamos Pageable = org.springframework.data.domain.Pageable
+	   3.- Retornamos un Page */
 	 public Page<Cliente> findall(Pageable pageable);
 	 
-	 /* Gurdar  y Modificar un cliente. */
+	 /* Guardar un cliente, sirve para cuando:
+	    1.- Creamos un Cliente y lo guardamos.
+	    2.- Editamos un Cliente y lo guardamos.
+	  */
 	 public void save(Cliente cliente);
 
 	 /* Buscar cliente por su id*/
@@ -38,5 +42,15 @@ public interface IClientService {
 	 /* Lista un Producto del cliente. */
 	 public List<Producto> finByNombre(String term);
 	 
-
+	/* ************************************************************************* */ 
+	 						/* MÉTODOS PARA LA FACTURA. */
+	/* ************************************************************************* */	 
+	
+	 public void saveFactura(Factura factura);
+	 
+	 public Producto findProductoById(Long id);
+	
+	 public Factura findFacturaById(Long id);
+	 
+	 public void EliminarFactura(Long id);
 }

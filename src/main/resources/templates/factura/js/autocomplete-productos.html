@@ -1,68 +1,198 @@
 <!DOCTYPE html>
-<!-- A?adimos el nameSpace de seguridad de Thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org">
-
 <body>
 
 	<script type="text/javascript" th:fragment="javascript">
+		/*
+		 Mediente un campo de texto implementamos el "AUTOCOMPLETE" MEDIANTE jqUERY, esta librería provee de todos los 
+		 componentes gráficos todo lo que es interface de usuario, de manera que cuando el usuario va escribiendo va realizando
+		 peticiones asíncronas Ajax al servidor las cuales son antendidas por el controlador mediante los metodos Antlers que se 
+		 encarga de manejar esa petición AJAX que se encarga de manejar el PARAMETRO que le estamos enviado por texto y buscara
+		 los productos que coindican con ese valor y lo retorna en una estructura JSON.
 
- $(document).ready(function(){
-	$("#buscar_producto").autocomplete({
-		
-		source: function(request, response){
-			$.ajax({
-				url: "/factura/cargar-productos/" + request.term,
-				dataType: "json",
-				data: {
-					term: request.term
-				},
-				success: function(data){
-					response($.map(data, function(item){
-						return{
-							value: item.id,
-							label: item.nombre,
-							precio: item.precio,
-						};
-					}));
-				},
-			});
-		},
-		select: function(event, ui){
-			//$("buscar_producto").val(ui.item.label);
-			
-			/* Recibimos el id de la vista plantilla-items.html -> plantillaItemsFactura
-				.html() = invoca el método html en este caso el tbody */
-			var linea = $("#plantillaItemsFactura").html();
-			
-			/*	Reemplazamos Id, Nombre y Precio por el valor. */
-			linea = linea.replace(/{ID}/g, ui.item.value);
-			linea = linea.replace(/{NOMBRE}/g, ui.item.label);
-			linea = linea.replace(/{PRECIO}/g, ui.item.precio);
-			
-			/* Ahora cargamos está línea a cargarItemProductos del tbody*/
-			$("#cargarItemProductos tbody").append(linea);
-			
-			itemsHelper.calcularImporte(ui.item.value,ui.item.precio, 1);
-			
-			return false;
-		},
-		focus: function(event, ui){
-		    event.preventDefault();
-		    $('input[name="buscar_producto"]').val(ui.item.label);
-		   },
-	});
-});
- 
- /* Vamos a calcular el Importe */
- var itemsHelper = {
-		 calcularImporte: function(id,precio,cantidad){
-			 $("#total_importe_" + id).html(parseInt(precio) * parseInt(cantidad));
-		 }
-		 
- }
- 
+		 */
+		// comprobamos que el elemento html este completamente cargado mediante ready
+		$(document)
+				.ready(
+						function() {
+
+							// Usamos # para hacer referencia al id, el autocomplete estara asociado al campo buscar_producto con su id
+							$('#buscar_producto')
+									.autocomplete(
+											{
+
+												// Metodo source se encarga de procesar el resultado y hacer algo con ellos.
+												source : function(request,
+														response) {
+													$
+															.ajax({
+																// Pasamos un objeto con todos los parámetros y con la implementación con el metodo SUCCESS
+
+																// Es un mapping url , se encarga de realizar la peticion ajax y devuelve los productos encontrados
+																// Hay que pasarle un parametro el cual se está escribiendo en el texto en este caso -> "request.term"
+																// Todo lo que se escriba dentro del "INPUT" se queda asociado a la variable "TERM".
+																url : "/factura/cargar-productos/"
+																		+ request.term,
+																// es el tipo de datos 
+																dataType : "json",
+																// Guardamos el parametro para enviarlo tanto post como get, en nuestro caso es un "GET"
+																data : {
+																	// Se le puede dar el mismo nombre que le hemos dado anteriormente.	
+																	term : request.term
+																},
+																// Se encarga de recibir los datos en formato JSON y se lo pasamos el autocomplete
+																success : function(
+																		data) {
+																	// Le pasamos estos datos mediante el "RESPONSE(Respuesta)" y dentro el map que se encarga de realizar un proceso
+																	// por cada elemento del array que contenga el "DATA" y como segundo valor una funcion anonima que contendra 
+																	// el valor de cada elemento, por cada item retornara el id, nombre y precio.
+																	response($
+																			.map(
+																					data,
+																					function(
+																							item) {
+																						return {
+																							value : item.id,
+																							label : item.nombre,
+																							precio : item.precio,
+																						};
+																					}));
+																},
+															});
+												},
+												// Implementamos el metodo select, que nos permite cualquier tipo de tarea que es seleccionado mediante el autocomplete
+												select : function(event, ui) {
+													// 			$("#buscar_producto").val(ui.item.label);
+													/* Debemos preguntar si el producto existe, Invocamos el metodo hasProducto del metodo itemsHelper 
+													 le pasamos el id que en esta funcion se obtiene mediante el ui de la funcion.
+													 */
+													if (itemsHelper
+															.hasProducto(ui.item.value)) {
+														/* Si el producto existe solo incrementara la cantidad en 1. de manera que si metemos 2 veces un mismo elemento el input
+														de cantidad se incrementara en uno, sin necesidad de incrementarlo mediante la flechita del input */
+														itemsHelper
+																.incrementaCantidad(
+																		ui.item.value,
+																		ui.item.precio);
+														return false;
+													}
+													// Contiene el contenido HTML de este elemento.
+													var linea = $(
+															"#plantillaItemsFactura")
+															.html();
+
+													linea = linea.replace(
+															/{ID}/g,
+															ui.item.value);
+													linea = linea.replace(
+															/{NOMBRE}/g,
+															ui.item.label);
+													linea = linea.replace(
+															/{PRECIO}/g,
+															ui.item.precio);
+													// Hacemos referencia a la vista form.html al nombre de la tabla id="cargarItemProductos"
+
+													$(
+															"#cargarItemProductos tbody")
+															.append(linea);
+													// Calculamos la cantidad, por defecto la cantidad es 1
+													itemsHelper
+															.calcularImporte(
+																	ui.item.value,
+																	ui.item.precio,
+																	1);
+													return false;
+												}
+											});
+
+							/* ------------------------------------------------------------------------------------------------------------	*//* ------------------------------------------------------------------------------------------------------------	*/
+							// Metodo para borrar el tbody que no debe enviarse de la plantilla-items
+							/*
+							 Tengo que poner el name ya que en el layout tenemos otro form y si ponemos solo $("form").submit... -> no pasa bien el long a string
+							 Este form se coge del form.html */
+
+							$("form[name='formFactura']").submit(function() {
+								$("#plantillaItemsFactura").remove();
+								return;
+							});
+
+							/* ------------------------------------------------------------------------------------------------------------	*/
+
+						});
+
+		// Declaramos una nueva función para que calcule el precio total
+
+		var itemsHelper = {
+
+			/* ------------------------------------------------------------------------------------------------------------	*/
+			calcularImporte : function(id, precio, cantidad) {
+				// Obtenemos el total importe del <span> que esta creado en plantillas-items.htmls
+				$("#total_importe_" + id).html(
+						parseInt(precio) * parseInt(cantidad));
+
+				this.calcularGranTotal();
+
+			},
+
+			/* ------------------------------------------------------------------------------------------------------------ */
+			/* Esta función se encarga de buscar linea por linea en el detalle de la factura si existe el id en el 
+			detalle del producto	*/
+			hasProducto : function(id) {
+				// Si no encuentra el id retorna false
+				var resultado = false;
+				// Cogemos el name="item_id[]" del inputy alojado en plantilla-items.html	
+				// De esta forma estamos haciendo referencia al metod input del elemento dicho ya anteriormente
+				$('input[name="item_id[]"]').each(function() {
+					if (parseInt(id) == parseInt($(this).val())) {
+						// Si existe el producto con el ID especificado devuelve un verdadero.
+						resultado = true;
+					}
+				});
+				return resultado;
+			},
+
+			/* ------------------------------------------------------------------------------------------------------------	*/
+			// Tener un metodo para incrementar la cantidad de la linea existente.
+			incrementaCantidad : function(id, precio) {
+				/* comprobamos que el valor que le pasamos en plantilla-itemms.xhtml en el input de cantidad id=cantidad_{ID}
+				contiene ya un valor existente con signo ? preguntamos. Si tiene la convertimos a INTEGER, de lo contrario con ":" retoramos un 0		*/
+				var cantidad = $("#cantidad_" + id).val() ? parseInt($(
+						"#cantidad_" + id).val()) : 0;
+				// Incrementamos la cantidad y se la pasamos al input cantidad de plantilla.-items
+				$("#cantidad_" + id).val(++cantidad);
+				/* Ahora debemos calcular el importe cuando varia la cantidad (Actualizar).
+				usamo "this" para invocar el metodo dentro del mismo objeto (calcularImporte)
+				 */
+				this.calcularImporte(id, precio, cantidad);
+			},
+			/* ------------------------------------------------------------------------------------------------------------ */
+			eliminarLineaFactura : function(id) {
+				/* Hacemos referencia al id que tiene el campo <tr id="row_{ID}"> de plantilla-items.html
+				Mediante Jquery obtenemos el elemento y lo eliminamos. 
+				 */
+				$("#row_" + id).remove();
+				// Borra el total de la factura al borrar dicho parametro de la factura
+				this.calcularGranTotal();
+			},
+			/* ------------------------------------------------------------------------------------------------------------	*/
+			calcularGranTotal : function() {
+				var total = 0;
+				/* Usamos jquery para recorrer cada span que contega id del span de plantilla-items.xhtml 
+				Debemos colocar ^ para que nos busque en todos los spam donde el id contenga total_importe
+				 */
+				$('span[id^="total_importe_"]').each(function() {
+					/* 		Por cada elemento encontrado (this), por cada spam obtenemos su contenido html que sería el total_importe y lo sumamos */
+					total += parseInt($(this).html());
+
+				});
+				// Por ultimo lo asignamos a la varible "gran_total" que esta indicada en el form.html
+				$('#gran_total').html(total);
+				// Ahora debemos meterlo en la funcion itemsHelper
+			}
+
+		/* ------------------------------------------------------------------------------------------------------------	*/
+
+		}
 	</script>
-
 </body>
-
 </html>
