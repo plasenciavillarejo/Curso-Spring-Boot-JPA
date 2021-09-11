@@ -12,7 +12,7 @@
 			<div class="clard-body">
 
 				<h4 class="card-title">
-					<a  th:href="@{'/ver/'}" class="btn btn-light btn-xs"> &laquo; volver</a>
+					<a  th:href="@{'/ver/' + ${factura.id}}" class="btn btn-light btn-xs"> &laquo; volver</a>
 			
 			<!-- Vamos a importar la factura a pdf. -->
 				<a class="btn btn-danger btn-xs float-right" th:href="@{'/factura/ver/' + ${factura.id}(format=pdf)}">Exportar a PDF</a>
