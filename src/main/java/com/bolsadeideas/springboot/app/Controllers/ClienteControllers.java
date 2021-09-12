@@ -1,9 +1,11 @@
 package com.bolsadeideas.springboot.app.Controllers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Past;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.service.IClientService;
 import com.bolsadeideas.springboot.app.util.paginator.PageRender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Controller
 /*
@@ -57,7 +61,8 @@ public class ClienteControllers {
 	   2.- Se usa al pulsar la vista principal al pulsar el ID [1] -> Te redirige a la vista ver.html*/
 	
 	@GetMapping(value="/ver/{id}")
-	public String ver (@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+	public String ver (@PathVariable(value="id") Long id, 
+			Map<String, Object> model, RedirectAttributes flash) {
 		
 		Cliente cliente = clienteService.findOne(id);
 		if (cliente==null) {
@@ -67,7 +72,7 @@ public class ClienteControllers {
 		log.info("Leyendo clase Listar: usuario -> " + cliente);
 		
 		model.put("cliente", cliente);
-		model.put("titulo","Detalle cliente:  " + cliente.getNombre());
+		model.put("titulo","Detalle cliente:  " + cliente.getNombre() + " " + cliente.getApellido());
 		return "ver";
 	}
 		
@@ -205,24 +210,29 @@ public class ClienteControllers {
 		}
 		return "redirect:/listar";
 	}
-	
-	
-	/* ----------------------------------------------------------------------- */
-	/* ----------------------------------------------------------------------- */
-	
-	@RequestMapping(value = "/buscar")
-	public String buscarcliente(String nombre, String apellido, Model model){
-		model.addAttribute("titulo", "Buscar cliente");
-		model.addAttribute("cliente", clienteService.findByLastnameAndFirstname(nombre, apellido));
 		
+	/* ----------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------- */
+	
+	/* 6.- Buscar un cliente. */
+	@GetMapping(value = "/buscar")
+	public String buscarcliente(Model model) throws Exception{
+		try {
+			model.addAttribute("titulo", "Buscar cliente");
+			model.addAttribute("clientes", clienteService.findall());
+			log.info("Dentro de la clase Buscar Un Cliente");
+		}catch(Exception e){
+			throw new Exception(e.getMessage());
+		}
 		return "buscar";
 	}
 	
+
 	/* ----------------------------------------------------------------------- */
 	/*					MÉTODOS PARA USAR POSTMAN.							   */
 	/* ----------------------------------------------------------------------- */
 	
-	
+	@JsonIgnore
 	@RequestMapping(value = "/buscarCli")
 	public ResponseEntity<?> buscarcliente(@RequestParam String nombre, String apellido) throws Exception{
 		try {
@@ -232,17 +242,26 @@ public class ClienteControllers {
 		}
 	}
 	
-	
-	
 	@GetMapping("/buscarfil")
 	public ResponseEntity<?> findByNombreAndApellido(@RequestParam String filtro) throws Exception {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(clienteService.findByNombreAndApellido(filtro));
 		}catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
-		}
-			
+		}		
 	}
+	
+	@RequestMapping(value = "/eliminarC/{id}")
+	public BodyBuilder eliminarC(@PathVariable(value = "id") Long id) {
+
+	      Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("id", id);
+		
+		return ResponseEntity.status(HttpStatus.OK);
+	}
+
+	
+	
 	
 }
 

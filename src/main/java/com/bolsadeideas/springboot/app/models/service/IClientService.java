@@ -44,12 +44,13 @@ public interface IClientService {
 	 /* Lista un Producto del cliente. */
 	 public List<Producto> finByNombre(String term);
 	 
-	 
-	 /* BUSCAR CLIENTES MEDIANTE POSTMAN.*/
-		
+	 /* ************************************************************************* */
+	 					/* BUSCAR CLIENTES MEDIANTE POSTMAN.*/
+	 /* ************************************************************************* */
 	public List<Cliente> findByLastnameAndFirstname(String nombre, String apellido);
 	public List<Cliente> findByNombreAndApellido(String filtro) throws Exception;
 	 
+	
 	/* ************************************************************************* */ 
 	 						/* MÉTODOS PARA LA FACTURA. */
 	/* ************************************************************************* */	 

@@ -22,6 +22,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "clientes")
 public class Cliente implements Serializable {
@@ -70,7 +72,8 @@ public class Cliente implements Serializable {
 	  Aquí es más recomenado el Lazy ya que traera una a una la factura del cliente, con EAGER traera todas las facturas de un mismo cliente a la misma vez
 	  puede sobrecargar la BD.
 	  CascadeType.All = Se reliza todas las consultas en cadena. 
-	  MappedBy = Mapeamos el objeto de la clase Factura, "cliente". De esta forma hacermos que sea vireccional.*/
+	  MappedBy = Mapeamos el objeto de la clase Factura, "cliente". De esta forma hacemos que sea vireccional.*/
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Factura> facturas;
 

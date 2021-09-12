@@ -2,7 +2,21 @@
 <!-- A�adimos el nameSpace de seguridad de Thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/layout :: head">
+
+<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" th:fragment="javascript">
+
+$(document).ready(function)(){
+	$('#buscarCliente')
+	
+	
+	});
+});
+
+</script>
+
+</head>
 
 <body>
 
@@ -22,7 +36,28 @@
 						value="Buscar Cliente" class="btn btn-secondary" />
 				</form>
 
-
+				<div class="container py-4">
+					<a class="btn btn-primary" th:href="@{/listar}"
+						th:text="'&laquo; Atras'"></a>
+				</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cliente: ${clientes}">
+							<td th:text="${cliente.id}"></td>
+							<td th:text="${cliente.nombre}"></td>
+							<td th:text="${cliente.apellido}"></td>
+							<td th:text="${cliente.email}"></td>
+						</tr>
+					</tbody>
+				</table>
 
 			</div>
 		</div>

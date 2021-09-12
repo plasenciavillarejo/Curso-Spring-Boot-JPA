@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 /* Marcamos a la clase de Persistencia.*/
 @Entity
@@ -50,6 +52,7 @@ public class Factura implements Serializable {
  	Muchas facturas un cliente = ManyToOne 
  	Indicamos el Fetch = Carga Perezosa (Forma más recomendada) solo realiza la consulta cuando se le llama.
  	Eager = Trae todo de una vez, puede cargar demasiado la base de datos. */
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
 

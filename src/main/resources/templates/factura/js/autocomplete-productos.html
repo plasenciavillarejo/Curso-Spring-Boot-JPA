@@ -49,8 +49,7 @@
 																	response($
 																			.map(
 																					data,
-																					function(
-																							item) {
+																					function(item) {
 																						return {
 																							value : item.id,
 																							label : item.nombre,
@@ -92,8 +91,7 @@
 															ui.item.precio);
 													// Hacemos referencia a la vista form.html al nombre de la tabla id="cargarItemProductos"
 
-													$(
-															"#cargarItemProductos tbody")
+													$("#cargarItemProductos tbody")
 															.append(linea);
 													// Calculamos la cantidad, por defecto la cantidad es 1
 													itemsHelper

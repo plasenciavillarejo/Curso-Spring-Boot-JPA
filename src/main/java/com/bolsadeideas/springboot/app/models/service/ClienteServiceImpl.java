@@ -14,6 +14,7 @@ import com.bolsadeideas.springboot.app.models.dao.IProductoDao;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Factura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Service
 public class ClienteServiceImpl implements IClientService {
@@ -71,6 +72,13 @@ public class ClienteServiceImpl implements IClientService {
 		 */
 	}
 
+	
+	
+	
+	 /* ************************************************************************* */
+						/* BUSCAR CLIENTES MEDIANTE POSTMAN.*/
+	/* ************************************************************************* */
+	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Cliente> findByLastnameAndFirstname(String nombre, String apellido) {
@@ -86,12 +94,9 @@ public class ClienteServiceImpl implements IClientService {
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-		
-		
-		
 	}
 	
-	
+		
 	/* ************************************************************************* */ 
 							/* MÉTODOS PARA LA FACTURA. */
 	/* ************************************************************************* */		
