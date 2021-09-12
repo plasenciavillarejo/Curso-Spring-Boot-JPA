@@ -73,7 +73,7 @@ public class Cliente implements Serializable {
 	  puede sobrecargar la BD.
 	  CascadeType.All = Se reliza todas las consultas en cadena. 
 	  MappedBy = Mapeamos el objeto de la clase Factura, "cliente". De esta forma hacemos que sea vireccional.*/
-	@JsonManagedReference
+
 	@OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Factura> facturas;
 

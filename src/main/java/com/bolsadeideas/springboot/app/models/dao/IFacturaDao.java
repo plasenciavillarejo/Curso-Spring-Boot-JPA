@@ -1,9 +1,15 @@
 package com.bolsadeideas.springboot.app.models.dao;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.bolsadeideas.springboot.app.models.entity.Factura;
 
 public interface IFacturaDao extends CrudRepository<Factura, Long>{
 
+	/* 1.- Mejoramos la consulta de Factura.
+	 * 2.- Obtenemos la Factura sin necesidad de realizar la carga perezosa(LAZY),si no que viene todo de una vez (Evitamos realizar 7 consultas seguidas). */
+	
+	@Query("select f from Factura f join fetch f.cliente c join fetch f.items l join fetch l.producto where f.id=?1")
+	public Factura fetchByIWithClienteWithItemFacturaWithProducto(Long id);
 }

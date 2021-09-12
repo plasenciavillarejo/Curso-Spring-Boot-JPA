@@ -16,6 +16,7 @@ import com.bolsadeideas.springboot.app.models.entity.Factura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Service
 public class ClienteServiceImpl implements IClientService {
 
@@ -50,6 +51,12 @@ public class ClienteServiceImpl implements IClientService {
 	public Cliente findOne(Long id) {
 		return clienteDao.findById(id).orElse(null);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente fetchByIdWithFacturas(Long id) {
+		return clienteDao.fetchByIdWithFacturas(id);
+	}
 
 	@Override
 	@Transactional
@@ -71,9 +78,8 @@ public class ClienteServiceImpl implements IClientService {
 		 * 2º Forma de buscarlo. return productoDao.findByNombreLikeIgnoresCase(term);
 		 */
 	}
+	
 
-	
-	
 	
 	 /* ************************************************************************* */
 						/* BUSCAR CLIENTES MEDIANTE POSTMAN.*/
@@ -125,13 +131,9 @@ public class ClienteServiceImpl implements IClientService {
 		facturaDao.deleteById(id);
 	}
 
-
-
-
-
-
-
-
-	
+	@Override
+	public Factura fetchByIWithClienteWithItemFacturaWithProducto(Long id) {
+		return facturaDao.fetchByIWithClienteWithItemFacturaWithProducto(id);
+	}
 	
 }

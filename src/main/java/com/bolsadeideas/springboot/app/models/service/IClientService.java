@@ -21,6 +21,8 @@ public interface IClientService {
 		
 	/* Copiamos los métodos definidos en IClientDao.java*/
 
+	public Factura fetchByIWithClienteWithItemFacturaWithProducto(Long id);
+	
 	/* Listar todos los clientes de forma continua (No se está usando ahora mismo en el ejmplo, sustituido por Page<Cliente>). */
 	 public List<Cliente> findall();
 
@@ -37,6 +39,10 @@ public interface IClientService {
 
 	 /* Buscar cliente por su id*/
 	 public Cliente findOne(Long id);
+	 
+	 
+	 /* Mejora de buscar la factura del cliente por su id*/
+	 public Cliente fetchByIdWithFacturas(Long id);
 	 
 	 /* Eliminar CLiete*/
 	 public void delete (long id);

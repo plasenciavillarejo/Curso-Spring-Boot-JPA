@@ -19,6 +19,10 @@ import com.bolsadeideas.springboot.app.models.entity.Cliente;
 public interface IClienteDao extends PagingAndSortingRepository<Cliente, Long> {
 
 	
+	/* 1.- Mejora del buscar una factura del cliente*/
+	@Query("select c from Cliente c left join fetch c.facturas f where c.id=?1")
+	public Cliente fetchByIdWithFacturas(Long id);
+	
 	 /* Buscar un cliente por su nombre y apellido usando Jquery. */
 	 @Query("select c from #{#entityName} c where c.nombre = :nombre and c.apellido = :apellido")
 	 List<Cliente> findByLastnameAndFirstname(@Param("nombre" ) String nombre, 
