@@ -216,7 +216,8 @@ public class ClienteControllers {
 	/* ----------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------- */
 	
-	/* 6.- Buscar un cliente. */
+	/* 6.- Buscar un cliente. 
+	   ME FALTA INTEGRAR LA BUSQUEDA /buscarClie EN LA VISTA BUSCAR.HTML */
 	@GetMapping(value = "/buscar")
 	public String buscarcliente(Model model) throws Exception{
 		try {
