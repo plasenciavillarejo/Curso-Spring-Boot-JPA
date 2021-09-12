@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- A�adimos el nameSpace de seguridad de Thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<!-- Py-4 : Nos da un margen de ancchura en el "listado de clientes". -->
+	<div class="container py-4">
+
+		<!-- bg-light: Le da un fondo de color a la tabla grisaceo -->
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<form action="buscarCliente">
+					<span>Nombre: </span> <input type="text" name="nombre" /> <span>Apellido:
+					</span> <input type="text" name="apellido" /> <input type="submit"
+						value="Buscar Cliente" class="btn btn-secondary" />
+				</form>
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

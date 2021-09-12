@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.Controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
@@ -59,10 +64,10 @@ public class ClienteControllers {
 			flash.addFlashAttribute("Error", "El cliente no existe en la base de datos");
 			return "redirect:/listar";
 		}
-		log.info("Leyendo clase Listar.");
+		log.info("Leyendo clase Listar: usuario -> " + cliente);
 		
 		model.put("cliente", cliente);
-		model.put("titulo","Detalle cliente: " + cliente.getNombre());
+		model.put("titulo","Detalle cliente:  " + cliente.getNombre());
 		return "ver";
 	}
 		
@@ -200,4 +205,44 @@ public class ClienteControllers {
 		}
 		return "redirect:/listar";
 	}
+	
+	
+	/* ----------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------- */
+	
+	@RequestMapping(value = "/buscar")
+	public String buscarcliente(String nombre, String apellido, Model model){
+		model.addAttribute("titulo", "Buscar cliente");
+		model.addAttribute("cliente", clienteService.findByLastnameAndFirstname(nombre, apellido));
+		
+		return "buscar";
+	}
+	
+	/* ----------------------------------------------------------------------- */
+	/*					MÉTODOS PARA USAR POSTMAN.							   */
+	/* ----------------------------------------------------------------------- */
+	
+	
+	@RequestMapping(value = "/buscarCli")
+	public ResponseEntity<?> buscarcliente(@RequestParam String nombre, String apellido) throws Exception{
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(clienteService.findByLastnameAndFirstname(nombre, apellido));
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
+		}
+	}
+	
+	
+	
+	@GetMapping("/buscarfil")
+	public ResponseEntity<?> findByNombreAndApellido(@RequestParam String filtro) throws Exception {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(clienteService.findByNombreAndApellido(filtro));
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
+		}
+			
+	}
+	
 }
+

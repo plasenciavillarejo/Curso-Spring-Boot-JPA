@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Factura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
@@ -41,6 +43,12 @@ public interface IClientService {
 	
 	 /* Lista un Producto del cliente. */
 	 public List<Producto> finByNombre(String term);
+	 
+	 
+	 /* BUSCAR CLIENTES MEDIANTE POSTMAN.*/
+		
+	public List<Cliente> findByLastnameAndFirstname(String nombre, String apellido);
+	public List<Cliente> findByNombreAndApellido(String filtro) throws Exception;
 	 
 	/* ************************************************************************* */ 
 	 						/* MÉTODOS PARA LA FACTURA. */

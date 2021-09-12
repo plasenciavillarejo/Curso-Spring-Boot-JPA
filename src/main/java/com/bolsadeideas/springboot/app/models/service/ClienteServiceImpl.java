@@ -63,6 +63,7 @@ public class ClienteServiceImpl implements IClientService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Producto> finByNombre(String term) {
 		return productoDao.findByNombre(term);
 		/*
@@ -70,6 +71,27 @@ public class ClienteServiceImpl implements IClientService {
 		 */
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<Cliente> findByLastnameAndFirstname(String nombre, String apellido) {
+			return clienteDao.findByLastnameAndFirstname(nombre, apellido);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Cliente> findByNombreAndApellido(String filtro) throws Exception {
+		try {
+			List<Cliente> cliente =clienteDao.findByNombreAndApellido(filtro); 
+			return 	cliente;
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
+		
+		
+	}
+	
+	
 	/* ************************************************************************* */ 
 							/* MÉTODOS PARA LA FACTURA. */
 	/* ************************************************************************* */		
@@ -97,7 +119,14 @@ public class ClienteServiceImpl implements IClientService {
 	public void EliminarFactura(Long id) {
 		facturaDao.deleteById(id);
 	}
-	
+
+
+
+
+
+
+
+
 	
 	
 }
