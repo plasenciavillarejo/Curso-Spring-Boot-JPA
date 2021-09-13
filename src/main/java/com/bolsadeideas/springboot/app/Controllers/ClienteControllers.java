@@ -217,15 +217,51 @@ public class ClienteControllers {
 	/* ----------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------- */
 	
-	/* 6.- Buscar un cliente. 
-	   ME FALTA INTEGRAR LA BUSQUEDA /buscarClie EN LA VISTA BUSCAR.HTML */
+	/* Buscar un cliente Nombre y Apellido-> Explicación de como funciona. 
+	  --------------------------------------------------------------------
+	   1.- En el listar.html nos redirección al método -> @RequestMapping(value = "/buscar") y este nos devuelve la vista busqueda.html
+	   2.- Posteriormente dentro de la vista buscamos nombre y apellido y al pulsar el boton este ira a buscar el método th:action="@{/buscarC}" dentro del controlador.
+	   2.- @RequestMapping(value = "/buscarC", method = RequestMethod.GET) -> Obtiene la acción de la vista buscar.html y realiza la acción de buscar. Nos devuelve el usuairo. 
+	   
+	@RequestMapping(value = "/buscar")
+	public String buscarcliente() throws Exception{
+
+		return "buscar";
+	}
+  	
 	@RequestMapping(value = "/buscarC", method = RequestMethod.GET)
-	public String buscarcliente(@Param(value = "nombre") String nombre, 
+	public String buscarC(@Param(value = "nombre") String nombre, 
 			   				    @Param(value = "apellido") String apellido, Model model) throws Exception{
 		try {
 			model.addAttribute("titulo", "Buscar cliente");
-			model.addAttribute("clientes", clienteService.findall());
-			log.info("Dentro de la clase Buscar Un Cliente");
+			model.addAttribute("clientes", clienteService.findByLastnameAndFirstname(nombre, apellido));
+			
+			log.info("Dentro de la clase Buscar Un Cliente por Nombre y Apellido");
+		}catch(Exception e){
+			throw new Exception(e.getMessage());
+		}
+		return "buscar";
+	}
+	
+	*/
+
+	
+
+	/* ----------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------- */
+	
+	
+	/* 6.- Busqueda correcta de un usuario por Nombre y Apellido. */
+		
+	
+	@RequestMapping(value = "/buscar", method = RequestMethod.GET)
+	public String buscarC(@Param(value = "nombre") String nombre, 
+			   				    @Param(value = "apellido") String apellido, Model model) throws Exception{
+		try {
+			model.addAttribute("titulo", "Buscar cliente");
+			model.addAttribute("clientes", clienteService.findByLastnameAndFirstname(nombre, apellido));
+			
+			log.info("Dentro de la clase Buscar Un Cliente por Nombre y Apellido");
 		}catch(Exception e){
 			throw new Exception(e.getMessage());
 		}
@@ -234,11 +270,21 @@ public class ClienteControllers {
 	
 
 	/* ----------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------- */	
+	
+	
+	@RequestMapping(value="/prueba")
+	public String prueba() {
+		return "prueba";
+	}
+	
+	
+	/* ----------------------------------------------------------------------- */
 	/*					MÉTODOS PARA USAR POSTMAN.							   */
 	/* ----------------------------------------------------------------------- */
 	
-	@RequestMapping(value = "/buscar")
-	public ResponseEntity<?> buscarcliente(@Param(value = "nombre") String nombre, 
+	@RequestMapping(value = "/buscarCli")
+	public ResponseEntity<?> buscPostman(@Param(value = "nombre") String nombre, 
 										   @Param(value = "apellido") String apellido) throws Exception{
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(clienteService.findByLastnameAndFirstname(nombre, apellido));

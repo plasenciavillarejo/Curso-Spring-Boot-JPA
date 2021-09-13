@@ -26,7 +26,6 @@
 						<li th:each="error: ${#fields.errors('*')}" th:text="${error}">
 						</li>
 					</ul>
-
 				</div>
 
 				<form th:action="@{/form}" th:object="${cliente}" method="post">
