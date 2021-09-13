@@ -133,6 +133,7 @@ public class ClienteControllers {
 		/* Pasamos los datos a la vista: */
 		model.put("cliente", cliente);
 		model.put("titulo", "Formulario de Cliente");
+		clienteService.save(cliente);
 		return "form";
 	}
 
@@ -146,7 +147,7 @@ public class ClienteControllers {
 			return "form";
 		}
 		// Al indicar != null me da error, solución != OL
-		String mensajeFlash = (cliente.getId() != 0L)? "Cliente Editado con éxito!" : "Cliente Creado con éxito!";
+		String mensajeFlash = (cliente.getId() != 0L)? "Cliente Creado con éxito!" : "No se ha podido crear el Cliente.!";
 		clienteService.save(cliente);
 		// Cuando invoca este metodo borra la sesion
 		status.setComplete();
@@ -161,21 +162,10 @@ public class ClienteControllers {
 	/* 1.- Editamos un cliente.
 	   2.- Cuando accedemos a la vista Editar.html, y pulsamos en el boton "Editar Cliente", nos redirigira
 	   al método  dentro del controlador "guardareditar()" que captura dicha información de la vista*/
-	@RequestMapping(value = "/editar", method = RequestMethod.POST)
-	private String guardareditar(@Valid Cliente cliente, Model model, SessionStatus status, BindingResult result) {
-		/* Validacion */
-
-		if (result.hasErrors()) {
-			model.addAttribute("titulo", "Formulario Cliente");
-			return "editar";
-		}
-		clienteService.save(cliente);
-		status.setComplete();
-		return "redirect:listar";
-	}
 	
-	/* 2.- Editar un cliente accediendo a la vista creada editar.html */
-
+	
+	/* 1.- Accedemos a la vista y la mostramos junto a los datos de el cliente, no realizamos ninguna acción.*/
+	
 	@RequestMapping(value = "/editar/{id}")
 	private String edit(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 
@@ -197,6 +187,22 @@ public class ClienteControllers {
 
 		return "editar";
 	}
+	
+	/* 2.- Aquí realizamos los cambio del cliente y cuando le damos al boton si nos modifica en la BD el cliente y nos muestra la pagina principal.*/
+	
+	@RequestMapping(value = "/editar", method = RequestMethod.POST)
+	private String guardareditar(@Valid Cliente cliente, Model model, SessionStatus status, BindingResult result) {
+		/* Validacion */
+
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario Cliente");
+			return "editar";
+		}
+		clienteService.save(cliente);
+		status.setComplete();
+		return "redirect:listar";
+	}
+	
 	
 	/* ----------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------- */

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- A?adimos el nameSpace de seguridad de Thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container py-4">
+
+
+		<div class="card border-primary text-center">
+			<div class="card-header">Inicie Sesión.</div>
+			<div class="card-body py-3">
+
+				<form th:action="@{/login}" method="post">
+					<div class="mb-1">
+						<label for="exampleInputEmail1" class="form-label">User
+							Name</label> <input type="text" name="username" id="username"
+							class="form-control" placeholder="UserName" autofocus required />
+						<div id="userHelp" class="form-text">We'll never share your
+							user with anyone else.</div>
+					</div>
+					<div class="mb-1">
+						<label for="exampleInputPassword1" class="form-label">Password</label>
+						<input type="password" name="password" id="password"
+							class="form-control" placeholder="password" required />
+					</div>
+
+					<input type="submit" class="btn btn-lg btn-primary btn-block"
+						value="Sign In" /> <input type="hidden"
+						th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>

@@ -18,9 +18,10 @@
 
 			<!-- Creamos el link para crear un cliente-->
 			<h4 class="card-title">
-				<a class="btn btn-primary btn-sm" th:href="@{/form}"> Crear	Cliente </a>
-				<a class="btn btn-primary btn-sm" th:href="@{/buscar}"> Buscar Cliente </a>
-				<a class="btn btn-primary btn-sm" th:href="@{/prueba}"> Vista Prueba </a>
+				<!-- Implementamos la seguridad en el boton de crear cliente, preguntaremos si el usuario tiene ROL de Admin -->
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/form}"> Crear Cliente </a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/buscar}"> Buscar Cliente </a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/prueba}"> Vista Prueba </a>
 			</h4>
 			
 			<table class="table table-striped">
@@ -31,10 +32,10 @@
 						<th>Apellido</th>
 						<th>Email</th>
 						<th>Fecha</th>
-						<th>Crear Factura</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')">Crear Factura</th>
 						<!-- Metodo para editar el cliente -->
-						<th>Editar</th>
-						<th>Eliminar</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
 					</tr>
 				</thead>
 
@@ -47,10 +48,10 @@
 						<td th:text="${cliente.email}"></td>
 						<td th:text="${cliente.createAt}"></td>
 						<!-- Mantenemos estructura de Factura Controller, /factura/form y luego el clienteId-->
-						<td><a class="btn btn-success btn-xs" th:href="@{'/factura/form/' + ${cliente.id}}" th:text="' Crear Factura '"></a></td>
-						<td><a class="btn btn-primary btn-xs"
+						<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-success btn-xs" th:href="@{'/factura/form/' + ${cliente.id}}" th:text="' Crear Factura '"></a></td>
+						<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-primary btn-xs"
 							th:href="@{/editar/} + ${cliente.id}" th:text="'editar'"></a></td>
-						<td><a class="btn btn-danger btn-xs"
+						<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger btn-xs"
 							th:href="@{/eliminar/} + ${cliente.id}" th:text="'eliminar'"
 							onclick="return confirm('Estas Seguro que quieres eliminar el Cliente')"></a></td>
 					</tr>
