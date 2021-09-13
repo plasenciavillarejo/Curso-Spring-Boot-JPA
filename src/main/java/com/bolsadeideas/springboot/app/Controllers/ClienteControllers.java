@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
@@ -218,8 +219,9 @@ public class ClienteControllers {
 	
 	/* 6.- Buscar un cliente. 
 	   ME FALTA INTEGRAR LA BUSQUEDA /buscarClie EN LA VISTA BUSCAR.HTML */
-	@GetMapping(value = "/buscar")
-	public String buscarcliente(Model model) throws Exception{
+	@RequestMapping(value = "/buscarC", method = RequestMethod.GET)
+	public String buscarcliente(@Param(value = "nombre") String nombre, 
+			   				    @Param(value = "apellido") String apellido, Model model) throws Exception{
 		try {
 			model.addAttribute("titulo", "Buscar cliente");
 			model.addAttribute("clientes", clienteService.findall());
@@ -235,9 +237,9 @@ public class ClienteControllers {
 	/*					MÉTODOS PARA USAR POSTMAN.							   */
 	/* ----------------------------------------------------------------------- */
 	
-	@JsonIgnore
-	@RequestMapping(value = "/buscarCli")
-	public ResponseEntity<?> buscarcliente(@RequestParam String nombre, String apellido) throws Exception{
+	@RequestMapping(value = "/buscar")
+	public ResponseEntity<?> buscarcliente(@Param(value = "nombre") String nombre, 
+										   @Param(value = "apellido") String apellido) throws Exception{
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(clienteService.findByLastnameAndFirstname(nombre, apellido));
 		}catch (Exception e) {

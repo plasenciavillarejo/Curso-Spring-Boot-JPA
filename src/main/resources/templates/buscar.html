@@ -2,18 +2,7 @@
 <!-- A�adimos el nameSpace de seguridad de Thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout/layout :: head">
-
-<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script type="text/javascript" th:fragment="javascript">
-
-$("#boton").click(function(){
-    $("#form").submit();
-    });
-
-</script>
-
-</head>
+<head th:replace="layout/layout :: head"></head>
 
 <body>
 
@@ -27,10 +16,12 @@ $("#boton").click(function(){
 			<div class="card-header" th:text="${titulo}"></div>
 			<div class="card-body">
 
-				<form th:action="@{/buscarCli}" th:object="${cliente}" method="post">
+				<form th:action="@{/buscar}" th:object="${cliente}" method="post">
 					<span>Nombre: </span> <input type="text" th:field="*{nombre}" class="form-control"	th:errorsClass="'form-control alert-danger'" />
 					<span>Apellido: </span>		<input type="text" th:field="*{apellido}" class="form-control" th:errorsClass="'form-control alert-danger'" /> 
+				<div class="col-sm-6">	
 					<input type="submit" value="Buscar Cliente" class="btn btn-secondary" id="boton" />
+				</div>
 				</form>
 
 				<div class="container py-4">

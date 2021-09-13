@@ -26,7 +26,7 @@ public interface IClienteDao extends PagingAndSortingRepository<Cliente, Long> {
 	 /* Buscar un cliente por su nombre y apellido usando Jquery. */
 	 @Query("select c from #{#entityName} c where c.nombre = :nombre and c.apellido = :apellido")
 	 List<Cliente> findByLastnameAndFirstname(@Param("nombre" ) String nombre, 
-											 @Param("apellido") String apellido);
+											 @Param("apellido") String apellido) throws Exception;
 	 
 	@Query("select c from #{#entityName} c where c.nombre LIKE %:filtro% and c.apellido LIKE %:filtro%")
 	 List<Cliente> findByNombreAndApellido(@Param("filtro") String filtro ) throws Exception;

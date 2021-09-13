@@ -87,8 +87,14 @@ public class ClienteServiceImpl implements IClientService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Cliente> findByLastnameAndFirstname(String nombre, String apellido) {
+	public List<Cliente> findByLastnameAndFirstname(String nombre, String apellido) throws Exception {
+		try {
 			return clienteDao.findByLastnameAndFirstname(nombre, apellido);
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
+			
 	}
 	
 	@Override
