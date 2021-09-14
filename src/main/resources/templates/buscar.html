@@ -42,15 +42,13 @@
 
 					<div class="col-sm-6">
 						<input type="submit" value="Buscar Cliente"
-							class="btn btn-secondary" id="boton" />
+							class="btn btn-primary" id="boton" /> <a
+							class="btn btn-primary" th:href="@{/listar}"
+							th:text="'&laquo; Atras'"></a>
 					</div>
 
 				</form>
 
-				<div class="container py-4">
-					<a class="btn btn-primary" th:href="@{/listar}"
-						th:text="'&laquo; Atras'"></a>
-				</div>
 				<table class="table table-striped">
 					<thead>
 						<tr>

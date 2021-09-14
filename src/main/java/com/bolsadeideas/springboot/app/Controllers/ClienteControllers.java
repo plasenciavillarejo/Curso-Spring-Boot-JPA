@@ -1,14 +1,18 @@
 package com.bolsadeideas.springboot.app.Controllers;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Past;
 
+import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +21,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,6 +58,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @SessionAttributes("cliente")
 public class ClienteControllers {
 
+	protected final Log logger = LogFactory.getLog(this.getClass());
 
 // Inyectamos de forma directa el clienteService el cual se usa para el método fachada, de forma que no se accede de forma
 //	directa a los métodos DAO
@@ -96,24 +108,68 @@ public class ClienteControllers {
 	  	Queremos obtener el Page la página actual, página '0', '1', '2', etc ...*/
 
 	@RequestMapping(value = {"/listar","/"}, method = RequestMethod.GET)
-	public String Listar(@RequestParam(name="page",defaultValue = "0") int page, Model model) {
+	public String Listar(@RequestParam(name="page",defaultValue = "0") int page, Model model,
+			Authentication authentication,
+			HttpServletRequest request) {
 		
-	/* Lo hacemos de la forma estática, Pageable pageRequest  = new ... (Está Deprecated)
-	 	size= Cantidad registros que queremos mostrar por cada página. (Indico 4 Registro por página) */	
+	/* Diferentes forma de obtener el ROL del usuario logueado.*/	
+	
+		/* 1.- Método -> Vamos a implementar el usuario authenticado en el controlador. 
+	   	Nos mostrara el usuario por consola una vez que nos registremos. */	
+		if(authentication != null ) {
+			logger.info("Hola el usuario autenticado es: ".concat(authentication.getName()));
+		}	
+		
+		
+		/* 2.- Metodo -> Para implementar la autenticación de forma estática lo podemos hacer de la siguiente manera. */	
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (auth != null) {
+			logger.info("Utilizando forma estática SecurityContextHolder.getContext().getAuthentication(): Usuario Autenticado: "+ auth.getName().concat(" tienes acceso!"));
+		}
+
+		/* 3.- Metodo -> Llamamos a la clase creada -> Public boolean hasRole(String role) <- y validamos.*/	
+		
+		if(hasRole("ROLE_ADMIN")) {
+			logger.info("Utilizando la clase creada Public boolean hasRole(String role): Usuario Autenticado: ".concat(auth.getName()).concat(" tienes acceso!"));
+		}else {
+			logger.info("Hola ".concat(auth.getName()).concat(" NO tienes acceso!"));
+		}
+		
+		/* 4.- Metodo -> Usando clase integrada en spring. */
+		SecurityContextHolderAwareRequestWrapper securityContext = new SecurityContextHolderAwareRequestWrapper(request,"ROLE_");
+		
+		if(securityContext.isUserInRole("ADMIN")) {
+			logger.info("Utilizando forma SecurityContextHolderAwareRequestWrapper: Usuario Autenticado: "+ auth.getName().concat(" tienes acceso!"));
+		}else {
+			logger.info("Utilizando forma SecurityContextHolderAwareRequestWrapper: Usuario Autenticado: "+ auth.getName().concat(" No tienes acceso!"));
+		}
+		
+		/* 5.- Metodo -> Usando HttpServletRequest */
+		if(request.isUserInRole("ROLE_ADMIN")) {
+			logger.info("Utilizando forma HttpServletRequest: Usuario Autenticado: "+ auth.getName().concat(" tienes acceso!"));
+		}else {
+			logger.info("Utilizando forma HttpServletRequest: Usuario Autenticado: "+ auth.getName().concat(" No tienes acceso!"));
+		}
+		
+		
+	/* 1.- Lo hacemos de la forma estática, Pageable pageRequest  = new ... (Está Deprecated)
+	 		size= Cantidad registros que queremos mostrar por cada página. (Indico 4 Registro por página) */	
 		Pageable pageRequest = PageRequest.of(page, 5);
 		
-	/* Llamamos al método Page de la clase ClientesServiceImple.java y le pasamos el valor recogido pageRequest
+	/* 2.- Llamamos al método Page de la clase ClientesServiceImple.java y le pasamos el valor recogido pageRequest
 	 	De modo que obtendemos la lísta paginada de cliente con este método.*/
 		Page<Cliente> clientes = clienteService.findall(pageRequest);
 		
-	/* Creamos el PageRender
-	 	Sirve para desplazarnos entre páginas.*/	
+	/* 3.- Creamos el PageRender
+	 		Sirve para desplazarnos entre páginas.*/	
 		PageRender<Cliente> pageRender = new PageRender<>("/listar", clientes);
 		
 		model.addAttribute("titulo", "Listado de clientes");
-	/* Pasamos como párametro los cliente obtenidos por cada página.*/
+	/* 4.- Pasamos como párametro los cliente obtenidos por cada página.*/
 		model.addAttribute("clientes", clientes);
-	/* Pasamoa a la vista nuestro PageRender*/
+	/* 5.- Pasamoa a la vista nuestro PageRender*/
 		model.addAttribute("page", pageRender);
 		return "listar";
 	}
@@ -259,7 +315,6 @@ public class ClienteControllers {
 	
 	/* 6.- Busqueda correcta de un usuario por Nombre y Apellido. */
 		
-	
 	@RequestMapping(value = "/buscar", method = RequestMethod.GET)
 	public String buscarC(@Param(value = "nombre") String nombre, 
 			   				    @Param(value = "apellido") String apellido, Model model) throws Exception{
@@ -274,7 +329,43 @@ public class ClienteControllers {
 		return "buscar";
 	}
 	
-
+	/* ----------------------------------------------------------------------- */
+	/*	  Validación del Role al iniciar sesión den la clase Controller.	   */
+	/* ----------------------------------------------------------------------- */
+	
+	/* 7.- Validación de Rol del usuario.*/
+	
+	private boolean hasRole(String role) {
+		SecurityContext  context=SecurityContextHolder.getContext();
+		
+		if (context == null) {
+			return false;
+		}
+		Authentication authentication = context.getAuthentication();
+		if(authentication == null) {
+			return false;
+		}
+		
+		/* 1.- Obtenemos validaciones de Roles(Authority)
+		   2.- Definimos una Collection que contendra <Cualquier role o que represente un rol en nuestra aplicaición que herede de ella> se define con "?" GrantedAuthority*/
+		
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		
+		/* 3.- Ahora iremos recorriendo el tipo de ROL e iremos validando que rol tiene, si lo encuentra retornara un true */ 
+		
+	/*   for(GrantedAuthority authority: authorities) {
+		 4.- Validamos que tiene el ROLE, de modo que tiene permisos, por tanto nos devolvera un true. 	
+			if(role.equals(authority.getAuthority())) {
+				logger.info("Hola ".concat(authentication.getName()).concat(" tu role es:").concat(authority.getAuthority()));
+				return true;
+			}			
+		}*/
+		
+		/* 5.- Podemos también hacerlo sin necesidad de recorrer un  bucle.
+		   El método contains(GrantedAuthority) retorna un booleano, true o false, si contiene o no el elemento en la colección.*/	
+	return authorities.contains(new SimpleGrantedAuthority(role));
+	}
+	
 	/* ----------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------- */	
 	

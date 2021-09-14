@@ -36,10 +36,19 @@ public class LoginSuccesHandler  extends SimpleUrlAuthenticationSuccessHandler{
 	   		  Lo que hacemos es guradar los mensajes flash para mostrarlos en la vista.*/
 		FlashMap flashMap = new FlashMap();
 		
-		flashMap.put("success", "Ha iniciado sesión con éxito!");
+	/* 1.- Vamos a obtener el nombre del usuario registrado con el authentication.getName() una vez que hagamos login. */
+		flashMap.put("success","Hola" +authentication.getName()+", has iniciado sesión con éxito!");
+	
+	/* 2.- Nos mostrara por consola el usuario authenticado success.*/
+		if(authentication != null ) {
+			logger.info("El usuario: "+authentication.getName()+",  ha iniciado sesión con éxito");
+		}
 		
-	/* Pasamos nuestro mensaje al flashManager para guardarlo, con esto ya tendremos implementado nuestra clase. */
+	/* 4.- Pasamos nuestro mensaje al flashManager para guardarlo, con esto ya tendremos implementado nuestra clase. */
 		flashManager.saveOutputFlashMap(flashMap, request, response);
+		
+
+		
 		
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
