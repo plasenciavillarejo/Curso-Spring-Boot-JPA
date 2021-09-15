@@ -32,7 +32,7 @@ public class JPAUserDetailService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 	/* 1.- Obtenemos el usuario. */	
-		Usuario usuario = usuarioDao.findByUserName(username);
+		Usuario usuario = usuarioDao.findByUsername(username);
 		
 		if (usuario == null) {
 			logger.error("Error Login: no existe el usuario " + username);
