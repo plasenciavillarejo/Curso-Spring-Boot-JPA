@@ -70,3 +70,17 @@ INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(6,7,1);
 INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(7,8,1);
 INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(3,2,6);
 
+
+/* Inyectamos 2 usuario para hacer el login. */
+INSERT INTO users (username, password, enabled) VALUES ('jose','$2a$10$Rs431XSXPZc3vvX8vLFQCerQTpfitN4Q4HkQlyRaQslXJWh6tXvrq',1);
+INSERT INTO users (username, password, enabled) VALUES ('admin','$2a$10$Cr8senR9U/STePC/oCGfu.SVdaBnQ9bGXpymRbHICD5gTdD9hFV7y',1);
+
+/* Inyectamos los roles de los usuarios */
+INSERT INTO roles (user_id, rol) VALUES (1, 'ROLE_USER');
+INSERT INTO roles (user_id, rol) VALUES (2, 'ROLE_USER');
+INSERT INTO roles (user_id, rol) VALUES (2, 'ROLE_ADMIN');
+
+
+
+
+

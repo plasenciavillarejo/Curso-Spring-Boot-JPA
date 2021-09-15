@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.bolsadeideas.springboot.app.auth.handler.LoginSuccesHandler;
+import com.bolsadeideas.springboot.app.models.service.JPAUserDetailService;
 
 
 
@@ -34,24 +35,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	
 	
+	/* 1.- Inyectamos la clase service creada.*/
+	@Autowired
+	private JPAUserDetailService userDetailService;
+	
 	/* Metodo configureGlobal que recibe por parámetro el AuthenticationManagerBuilder
 	   El método va a estar anotado con @Autowired para poder inyectar el método AuthenticationManagerBuilder*/
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
 		
-		/* Creamos el PasswordEncoder (Forma en la que se va a encriptar la password) y le asignamos el creado más arriba passwordEncoder() .*/
-		PasswordEncoder enconder = passwordEncoder();
+	/* 2.- Implementamos SpringSecurity con JPA*/
 		
-		/* 1.- UserBuilder = para crear nuestros usuarios, nos encriptara la contraseña y nos la devuelve usando lambda. 
-		   2.- Otra forma de devolver el password más limpio es de la siguiente forma:
-		   			(enconder::encode) Se obtiene el argumento de la expresión lambda y se la pasa al encode	*/
-		UserBuilder users = User.builder().passwordEncoder(password -> enconder.encode(password));
-		
-		 /* 3.- Pasamos a crear los usuarios en memoría (Estos usuari no están dentro de la BD) . */
-		
-		authenticationManagerBuilder.inMemoryAuthentication().
-		withUser(users.username("admin").password("12345").roles("ADMIN","USER")).
-		withUser(users.username("jose").password("12345").roles("USER"));	
+		authenticationManagerBuilder.userDetailsService(userDetailService)
+									.passwordEncoder(passwordEncoder());
 	}
 
 	/* 1.- Método para Implementar las Autorizaciones (http) de las rutas. Da seguridad a todas nuestras páginas.
