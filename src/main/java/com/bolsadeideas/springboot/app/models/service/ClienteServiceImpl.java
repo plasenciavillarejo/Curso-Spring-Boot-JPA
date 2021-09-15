@@ -93,8 +93,6 @@ public class ClienteServiceImpl implements IClientService {
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-		
-			
 	}
 	
 	@Override

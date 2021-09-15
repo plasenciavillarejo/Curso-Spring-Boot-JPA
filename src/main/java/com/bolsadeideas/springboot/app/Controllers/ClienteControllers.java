@@ -70,6 +70,10 @@ public class ClienteControllers {
 	
 	
 	/* ----------------------------------------------------------------------- */
+	/*	  				 	  LISTAR FACTURA CLIENTE				    	   */
+	/* ----------------------------------------------------------------------- */
+	
+	
 	/* 1.- Ver la factura del cliente
 	   2.- Se usa al pulsar la vista principal al pulsar el ID [1] -> Te redirige a la vista ver.html*/
 	
@@ -91,7 +95,12 @@ public class ClienteControllers {
 		return "ver";
 	}
 		
-	/* ----------------------------------------------------------------------- 
+
+	/* ----------------------------------------------------------------------- */
+	/*							     LISTAR TODO							   */
+	/* ----------------------------------------------------------------------- */
+	
+	/*
 	Listar de forma continuada, sin usar page render // @RequestMapping(value="/listar", method = RequestMethod.GET)
 	@GetMapping(value = "/listar")
 	public String Listar(Model model) {
@@ -99,10 +108,11 @@ public class ClienteControllers {
 		model.addAttribute("clientes", clienteService.findall());
 		log.info("Leyendo clase Listar.");
 		return "listar";}*/	
-	/* ----------------------------------------------------------------------- */
 	
 	
+	
 	/* ----------------------------------------------------------------------- */
+	/*									LISTAR								   */
 	/* ----------------------------------------------------------------------- */
 	/* Listar Cliente: 
 	  	Queremos obtener el Page la página actual, página '0', '1', '2', etc ...*/
@@ -175,6 +185,7 @@ public class ClienteControllers {
 	}
 	
 	/* ----------------------------------------------------------------------- */
+	/*									CREAR								   */
 	/* ----------------------------------------------------------------------- */
 	
 	/* Crear Cliente: */
@@ -213,6 +224,7 @@ public class ClienteControllers {
 	
 	
 	/* ----------------------------------------------------------------------- */
+	/*									EDITAR								   */
 	/* ----------------------------------------------------------------------- */
 		
 	/* 1.- Editamos un cliente.
@@ -244,7 +256,7 @@ public class ClienteControllers {
 		return "editar";
 	}
 	
-	/* 2.- Aquí realizamos los cambio del cliente y cuando le damos al boton si nos modifica en la BD el cliente y nos muestra la pagina principal.*/
+	/* 2.- Al Pulsar "Aceptar" nos redirigira a este metodo que realizar una petición a la Base de datos y actualizá el registro.*/
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
 	private String guardareditar(@Valid Cliente cliente, Model model, SessionStatus status, BindingResult result) {
@@ -261,6 +273,7 @@ public class ClienteControllers {
 	
 	
 	/* ----------------------------------------------------------------------- */
+	/*									ELIMINAR							   */
 	/* ----------------------------------------------------------------------- */
 
 	
@@ -310,6 +323,7 @@ public class ClienteControllers {
 	
 
 	/* ----------------------------------------------------------------------- */
+	/*						BUSCAR UN USUARIO CONCRETO  					   */
 	/* ----------------------------------------------------------------------- */
 	
 	
