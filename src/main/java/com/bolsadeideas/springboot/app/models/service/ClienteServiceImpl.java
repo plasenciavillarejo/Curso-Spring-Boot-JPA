@@ -106,7 +106,12 @@ public class ClienteServiceImpl implements IClientService {
 		}
 	}
 	
-		
+	@Override
+	public Cliente save1(Cliente cliente) {		
+		return clienteDao.save(cliente);
+	}	
+	
+	
 	/* ************************************************************************* */ 
 							/* MÉTODOS PARA LA FACTURA. */
 	/* ************************************************************************* */		
@@ -139,5 +144,5 @@ public class ClienteServiceImpl implements IClientService {
 	public Factura fetchByIWithClienteWithItemFacturaWithProducto(Long id) {
 		return facturaDao.fetchByIWithClienteWithItemFacturaWithProducto(id);
 	}
-	
+
 }

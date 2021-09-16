@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "clientes")
@@ -75,6 +75,7 @@ public class Cliente implements Serializable {
 	  MappedBy = Mapeamos el objeto de la clase Factura, "cliente". De esta forma hacemos que sea vireccional.*/
 
 	@OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Factura> facturas;
 
 	/* Generamos un SuperConstructors */

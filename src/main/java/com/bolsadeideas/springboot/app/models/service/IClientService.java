@@ -46,7 +46,7 @@ public interface IClientService {
 	 
 	 /* Eliminar CLiete*/
 	 public void delete (long id);
-	
+		 
 	 /* Lista un Producto del cliente. */
 	 public List<Producto> finByNombre(String term);
 	 
@@ -56,6 +56,8 @@ public interface IClientService {
 	public List<Cliente> findByLastnameAndFirstname(String nombre, String apellido) throws Exception;;
 	public List<Cliente> findByNombreAndApellido(String filtro) throws Exception;
 	 
+	public Cliente save1(Cliente cliente);
+	
 	
 	/* ************************************************************************* */ 
 	 						/* MÉTODOS PARA LA FACTURA. */
@@ -68,4 +70,6 @@ public interface IClientService {
 	 public Factura findFacturaById(Long id);
 	 
 	 public void EliminarFactura(Long id);
+	 
+
 }
