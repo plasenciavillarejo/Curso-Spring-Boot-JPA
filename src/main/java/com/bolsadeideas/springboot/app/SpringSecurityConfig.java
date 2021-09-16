@@ -6,10 +6,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.bolsadeideas.springboot.app.auth.filter.JWTAuthenticationFilter;
 import com.bolsadeideas.springboot.app.auth.handler.LoginSuccesHandler;
 import com.bolsadeideas.springboot.app.models.service.JPAUserDetailService;
 
@@ -54,8 +57,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	   	  Boton Derecho - Source - Override/Implements Methods -> Sobreescribimos el método configure(HttpSecurity)
 	   2.- Inyectamos la clase LoginSuccesHandler que contiene el mensajeFlash cuando un usuario se ha logueado con éxito. */
 	
-	@Autowired
-	private LoginSuccesHandler succesHandler;
+	/*@Autowired
+	private LoginSuccesHandler succesHandler; */
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -68,14 +71,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		   6.- Vamos a inyectar nuestra página LoginSuccesHandler para que nos indique un mensaje de bienvenida -> .successHandler()
 		   			Como vamos a implementar nuestra pagina de login lo indicamos -> .loginPage("/login").permitAll()
 		   7.- Implementamos nuestro logout -> .logout().permitAll()
-		   8.- Agregamos nuestra página de error. -> .exceptionHandling().accessDeniedPage("error_403")*/
+		   8.- Agregamos nuestra página de error. -> .exceptionHandling().accessDeniedPage("error_403")
+		   9.- Implementamos JWTokens, desactivamos -> csrf().disable() para no usar el tokens de proteccion csrf
+		   10.- Habilitamos la conexíon en el sessionManager sin estado. -> .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) 
+		   11.- Desactivamos el formulario login para poder hacer uso de nuestra api-rest 
+		   12.- Pasamos nuestro filtro creado -> .addFilter(JWTAuthenticationFilter()) -> */
 		
 		http.authorizeRequests().antMatchers("/","/css/**","/js/**","/images/**","/listar/**","/listarRest","/api**").permitAll()
 		.antMatchers("/editar/**").hasAnyRole("ADMIN")
 		.antMatchers("/form/**").hasAnyRole("ADMIN")
 		.antMatchers("/eliminar/**").hasAnyRole("ADMIN")
 		.anyRequest().authenticated()
-		.and()
+		/*.and()
 			.formLogin()
 			.successHandler(succesHandler)
 			.loginPage("/login")
@@ -83,7 +90,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		.and()
 		.logout().permitAll()
 		.and()
-		.exceptionHandling().accessDeniedPage("/error_403");
+		.exceptionHandling().accessDeniedPage("/error_403")*/
+		.and()
+		.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+		.csrf().disable()
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
 	
