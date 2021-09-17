@@ -58,6 +58,8 @@ public interface IClientService {
 	 
 	public Cliente save1(Cliente cliente);
 	
+//	public Cliente findByIdDelete(Long id);
+	
 	
 	/* ************************************************************************* */ 
 	 						/* MÉTODOS PARA LA FACTURA. */
