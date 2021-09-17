@@ -331,7 +331,7 @@ public class ClienteControllers {
 		
 	@RequestMapping(value = "/buscar", method = RequestMethod.GET)
 	public String buscarC(@Param(value = "nombre") String nombre, 
-			   				    @Param(value = "apellido") String apellido, Model model) throws Exception{
+			   			  @Param(value = "apellido") String apellido, Model model) throws Exception{
 		try {
 			model.addAttribute("titulo", "Buscar cliente");
 			model.addAttribute("clientes", clienteService.findByLastnameAndFirstname(nombre, apellido));
@@ -421,9 +421,6 @@ public class ClienteControllers {
 		
 		return ResponseEntity.status(HttpStatus.OK);
 	}
-
-	
-	
 	
 }
 

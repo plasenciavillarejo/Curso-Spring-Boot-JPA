@@ -68,4 +68,6 @@ public interface IClientService {
 	 public Factura findFacturaById(Long id);
 	 
 	 public void EliminarFactura(Long id);
+	 
+	 public List<Factura> findByIdFactura(String descripcion) throws Exception;
 }

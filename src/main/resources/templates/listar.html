@@ -21,6 +21,7 @@
 				<!-- Implementamos la seguridad en el boton de crear cliente, preguntaremos si el usuario tiene ROL de Admin -->
 				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/form}"> Crear Cliente </a>
 				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/buscar}"> Buscar Cliente </a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/factura/buscarfactura}"> Buscar Factura </a>
 				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/prueba}"> Vista Prueba </a>
 			</h4>
 			

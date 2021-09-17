@@ -42,7 +42,7 @@ public class Factura implements Serializable {
 	@Column(name = "create_at")
 	private Date createAt;
 	
-/* Se encarga de generar la fcha. */
+	/* Se encarga de generar la fcha. */
 	@PrePersist
 	public void prePresist() {
 		createAt = new Date();
@@ -93,6 +93,8 @@ public class Factura implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
 
 	public String getDescripcion() {
 		return descripcion;
