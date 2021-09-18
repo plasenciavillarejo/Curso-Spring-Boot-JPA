@@ -72,18 +72,13 @@ public class JWTAuthenticationFilter extends  UsernamePasswordAuthenticationFilt
 				user = new ObjectMapper().readValue(request.getInputStream(), Usuario.class);
 				username = user.getUsername();
 				password = user.getPassword();
-				
 				logger.info("Username desde resquest InputStream (raw): " + username);
 				logger.info("Password desde resquest InputStream (raw): " + password);
-				
 			} catch (JsonParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 		}
@@ -165,9 +160,23 @@ public class JWTAuthenticationFilter extends  UsernamePasswordAuthenticationFilt
 		response.setContentType("application/json");
 		
 	}
+
 	
-	
-	
+	/* 1.- Implementacíon del Método cuando se realiza el login con credenciales distintas.*/
+
+	@Override
+	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException failed) throws IOException, ServletException {
+		
+		Map<String, Object> body = new HashMap<String, Object>();
+		body.put("mensaje", "Error de autenticación: username o password incorrecto!");
+		body.put("error", failed.getMessage());
+		
+		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
+		response.setStatus(401);
+		response.setContentType("application/json");
+		
+	}
 	
 	
 	
