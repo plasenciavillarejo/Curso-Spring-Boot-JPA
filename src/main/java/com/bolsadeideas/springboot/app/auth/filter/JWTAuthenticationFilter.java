@@ -1,6 +1,8 @@
 package com.bolsadeideas.springboot.app.auth.filter;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,12 +17,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -87,15 +91,29 @@ public class JWTAuthenticationFilter extends  UsernamePasswordAuthenticationFilt
 		   3.- Otra forma de obtener el usuario des de la siguiente forma:
 		   		String username = ((User) authResult.getPrincipal()).getUsername()) 
 		   4.- Firmamos nuestro token -> 
-		   			Debemos crear nuestra Llave secreta de forma autómatica ->  SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-		   5.- Para finalizar invocamos el método -> compact() */
+		   		Debemos crear nuestra Llave secreta de forma autómatica ->  SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+		   5.- Fecha de Creacíon Token -> setIssuedAt(Date iat)
+		   6.- Obtenemos los roles -> Collection<? extends GrantedAuthority> roles =  authResult.getAuthorities()
+		   		Lo tenemos que pasar mediante un Claims ya que es un dato extra que quermos incluir.
+		   7.- Obtenemos los Claims. -> Claims claims = Jwts.claims();
+		   		Tenemos que pasar los roles a un objeto json. -> new ObjectMapper().writeValueAsString(roles)
+		   7.- Fecha de Expiración -> setExpiration() - 3600000 es 1 hora. Se le indica 36000 "L" para indicar que es un long.
+		   
+		   
+		   .- Para finalizar invocamos el método -> compact() */
 		
 		SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 		
+		Collection<? extends GrantedAuthority> roles =  authResult.getAuthorities();		
+		Claims claims = Jwts.claims();
+		claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
 		
 		String token = Jwts.builder()
+				.setClaims(claims)
 				.setSubject(authResult.getName())
 				.signWith(secretKey)
+				.setIssuedAt(new Date())
+				.setExpiration(new Date(System.currentTimeMillis() + 3600000L))
 				.compact();
 				
 		/* 1.- Pasamos el Token en la cabecera de la respuesta para el usuario. 
