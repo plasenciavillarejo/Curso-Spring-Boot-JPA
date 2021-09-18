@@ -22,6 +22,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.bolsadeideas.springboot.app.models.entity.Usuario;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Claims;
@@ -54,13 +57,35 @@ public class JWTAuthenticationFilter extends  UsernamePasswordAuthenticationFilt
 		
 		String username = obtainUsername(request);
 		String password = obtainPassword(request);
-		
-		username = (username != null) ? username : "";
-		password = (password != null) ? password : "";
-		
+			
 		if(username != null && password != null) {
 			logger.info("Username desde resquest parameter (form-data): " + username);
 			logger.info("Password desde resquest parameter (form-data): " + password);
+		}
+	/* 2.- Aquí vamos a implementar cuando enviamos el usuario y la password mediante un formato Postman -> Body / Raw 
+	 * 3.- Convertimos los datos que estamos recibiendo a un objeto usuario. -> request.getInputStream(). 
+	 * 4.- Asignamos el Username -> username = user.getUsername();
+	 * 5.- Asignamos el Passwrod -> password = user.getPassword();*/
+		else {
+			Usuario user = null;
+			try {
+				user = new ObjectMapper().readValue(request.getInputStream(), Usuario.class);
+				username = user.getUsername();
+				password = user.getPassword();
+				
+				logger.info("Username desde resquest InputStream (raw): " + username);
+				logger.info("Password desde resquest InputStream (raw): " + password);
+				
+			} catch (JsonParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 		}
 		username = username.trim();
 		
