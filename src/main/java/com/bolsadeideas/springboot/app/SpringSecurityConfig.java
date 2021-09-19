@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bolsadeideas.springboot.app.auth.filter.JWTAuthenticationFilter;
+import com.bolsadeideas.springboot.app.auth.filter.JWTAuthorizationFilter;
 import com.bolsadeideas.springboot.app.auth.handler.LoginSuccesHandler;
 import com.bolsadeideas.springboot.app.models.service.JPAUserDetailService;
 
@@ -75,7 +76,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		   9.- Implementamos JWTokens, desactivamos -> csrf().disable() para no usar el tokens de proteccion csrf
 		   10.- Habilitamos la conexíon en el sessionManager sin estado. -> .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) 
 		   11.- Desactivamos el formulario login para poder hacer uso de nuestra api-rest 
-		   12.- Pasamos nuestro filtro creado -> .addFilter(JWTAuthenticationFilter()) -> */
+		   12.- Pasamos nuestro filtro creado -> .addFilter(JWTAuthenticationFilter()) 
+		   13.- Pasamos el filtro de la Autorización -> .addFilter(new JWTAuthorizationFilter(authenticationManager())) */
 		
 		http.authorizeRequests().antMatchers("/","/css/**","/js/**","/images/**","/listar/**","/listarRest","/api**").permitAll()
 		.antMatchers("/editar/**").hasAnyRole("ADMIN")
@@ -93,6 +95,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		.exceptionHandling().accessDeniedPage("/error_403")*/
 		.and()
 		.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+		.addFilter(new JWTAuthorizationFilter(authenticationManager()))
 		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}

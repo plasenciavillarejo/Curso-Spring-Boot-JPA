@@ -1,18 +1,18 @@
 package com.bolsadeideas.springboot.app.auth.filter;
 
 import java.io.IOException;
+import java.security.Key;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,7 +20,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -38,6 +38,7 @@ import io.jsonwebtoken.security.Keys;
 
 public class JWTAuthenticationFilter extends  UsernamePasswordAuthenticationFilter{
 
+public static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 	
 	/* 1.- Encargado de hacer el login*/
 	private AuthenticationManager authenticationManager;
@@ -122,7 +123,8 @@ public class JWTAuthenticationFilter extends  UsernamePasswordAuthenticationFilt
 		   
 		   .- Para finalizar invocamos el método -> compact() */
 		
-		SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+		//SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+		
 		
 		Collection<? extends GrantedAuthority> roles =  authResult.getAuthorities();		
 		Claims claims = Jwts.claims();
@@ -131,7 +133,7 @@ public class JWTAuthenticationFilter extends  UsernamePasswordAuthenticationFilt
 		String token = Jwts.builder()
 				.setClaims(claims)
 				.setSubject(authResult.getName())
-				.signWith(secretKey)
+				.signWith(SECRET_KEY)
 				.setIssuedAt(new Date())
 				.setExpiration(new Date(System.currentTimeMillis() + 3600000L))
 				.compact();
