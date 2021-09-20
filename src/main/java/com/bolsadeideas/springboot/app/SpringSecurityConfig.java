@@ -50,27 +50,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 								.passwordEncoder(passwordEncoder()).usersByUsernameQuery("select username, password, enabled from users where username=?")
 								.authoritiesByUsernameQuery("select u.username, r.rol from roles r inner join users u on (r.user_id = u.id) where u.username=? ");
 	}
-	
-//	Lo comentamos ya que vamos a implementar el método de encriptación de password JDBC			
-//		/* Creamos el PasswordEncoder (Forma en la que se va a encriptar la password) y le asignamos el creado más arriba passwordEncoder() .*/
-//		@Autowired
-//		public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
-//		PasswordEncoder enconder = passwordEncoder();
-//		
-//		/* 1.- UserBuilder = para crear nuestros usuarios, nos encriptara la contraseña y nos la devuelve usando lambda. 
-//		   2.- Otra forma de devolver el password más limpio es de la siguiente forma:
-//		   			(enconder::encode) Se obtiene el argumento de la expresión lambda y se la pasa al encode	*/
-//		UserBuilder users = User.builder().passwordEncoder(password -> enconder.encode(password));
-//		
-//		 /* 3.- Pasamos a crear los usuarios en memoría (Estos usuari no están dentro de la BD) . */
-//		
-//		authenticationManagerBuilder.inMemoryAuthentication().
-//		withUser(users.username("admin").password("12345").roles("ADMIN","USER")).
-//		withUser(users.username("jose").password("12345").roles("USER"));
-// }
-		
-		
-
 
 	/* 1.- Método para Implementar las Autorizaciones (http) de las rutas. Da seguridad a todas nuestras páginas.
 	   	  Boton Derecho - Source - Override/Implements Methods -> Sobreescribimos el método configure(HttpSecurity)
