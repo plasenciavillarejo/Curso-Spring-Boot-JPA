@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Factura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
+import com.bolsadeideas.springboot.app.models.entity.Usuario;
 
 /* Patron de diseño : Facade
 
@@ -70,4 +71,13 @@ public interface IClientService {
 	 public void EliminarFactura(Long id);
 	 
 	 public List<Factura> findByIdFactura(String descripcion) throws Exception;
+
+	/* ************************************************************************* */ 
+	/* 						Realizar Login Usuario y Password.      			 */
+	/* ************************************************************************* */	
+	 
+	 public List<Usuario> findByUsernameAndPassword(String username, String password) throws Exception;
+
 }
+
+

@@ -1,17 +1,29 @@
 package com.bolsadeideas.springboot.app.Controllers;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.bolsadeideas.springboot.app.models.entity.Usuario;
+import com.bolsadeideas.springboot.app.models.service.IClientService;
 
 @Controller
 public class LoginController {
 
+	@Autowired
+	private IClientService clienteService;
+	
 	/* 1.- Creamos nuestro LoginControlle para implementar nuestro Login.
 	   2.- Va a retornar la vista login.html
 	   3.- Se valida mediante el Objeto Principal si el usuario ya ha iniciado sesión, si es así, lo redirigimos a la página de inicio
@@ -41,16 +53,34 @@ public class LoginController {
 		return "login";
 	}
 	
-	/* Implementacion del logout.*/
+	@RequestMapping("/usuarioNuevo")
+	public String usuarioNuevo(@Param("username") String username,
+							   @Param("password") String password,
+							   Model model) throws Exception {
+		try {					
+		model.addAttribute("titulo", "Usuario Nuevo");
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return "usuarioNuevo";
+	}
 	
-//	@GetMapping("/logout")
-//	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();  
-//        if (auth != null){      
-//           new SecurityContextLogoutHandler().logout(request, response, auth);  
-//        }  
-//        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
-//        return "redirect:/"; 
-//		
-//	}	
+	@PostMapping("/usuarioNuevo")
+	public String usuarioNuevoCrear(@Param("username") String username,
+							   @Param("password") String password,
+							   Model model, Map<String, Object> map) throws Exception {
+		List<Usuario> usuario= null;
+		
+		usuario = clienteService.findByUsernameAndPassword(username, password);
+		
+		if (usuario != null) {
+			model.addAttribute("info", "El usuario ya existe");
+		}
+		
+
+		return "usuarioNuevo";
+		
+	}
+	
+	
 }

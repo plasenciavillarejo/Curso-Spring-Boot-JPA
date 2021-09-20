@@ -70,7 +70,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		   7.- Implementamos nuestro logout -> .logout().permitAll()
 		   8.- Agregamos nuestra página de error. -> .exceptionHandling().accessDeniedPage("error_403")*/
 		
-		http.authorizeRequests().antMatchers("/","/css/**","/js/**","/images/**","/listar", "/buscarfactura").permitAll()
+		http.authorizeRequests().antMatchers("/","/css/**","/js/**","/images/**","/listar", "/buscarfactura","/usuarioNuevo").permitAll()
 		.antMatchers("/editar/**").hasAnyRole("ADMIN")
 		.antMatchers("/form/**").hasAnyRole("ADMIN")
 		.antMatchers("/eliminar/**").hasAnyRole("ADMIN")

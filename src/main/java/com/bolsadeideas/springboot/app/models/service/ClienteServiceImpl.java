@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.bolsadeideas.springboot.app.models.dao.IClienteDao;
 import com.bolsadeideas.springboot.app.models.dao.IFacturaDao;
 import com.bolsadeideas.springboot.app.models.dao.IProductoDao;
+import com.bolsadeideas.springboot.app.models.dao.IUsuarioDao;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Factura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
+import com.bolsadeideas.springboot.app.models.entity.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -35,6 +37,9 @@ public class ClienteServiceImpl implements IClientService {
 
 	@Autowired
 	private IFacturaDao facturaDao;
+	
+	@Autowired
+	private IUsuarioDao usuarioDao;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -152,5 +157,15 @@ public class ClienteServiceImpl implements IClientService {
 		return facturaDao.fetchByIWithClienteWithItemFacturaWithProducto(id);
 	}
 
+
+	/* ************************************************************************* */ 
+	/* 						Realizar Login Usuario y Password.      			 */
+	/* ************************************************************************* */	
+	@Override
+	public List<Usuario> findByUsernameAndPassword(String username, String password) throws Exception {
+		return usuarioDao.findByUsernameAndPassword(username, password);
+	}	
+
+	
 
 }
