@@ -89,6 +89,7 @@ public class LoginController {
 		
 		usuario.setPassword(encriptacion);
 		
+		
 		clienteService.saveUsuario(usuario);
 		clienteService.saveRole(role);
 		

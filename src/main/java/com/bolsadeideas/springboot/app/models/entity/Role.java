@@ -9,9 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-@Entity
+
 /* 1.- Mapemos la clase Role a la clase creada en bd -> roles.
    2.- Añadimos la llaves unicas como están indicadas en la tabla -> uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","rol" */
+@Entity
 @Table(name = "roles", 
 uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","rol"})})
 public class Role implements Serializable {
