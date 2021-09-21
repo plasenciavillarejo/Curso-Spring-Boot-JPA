@@ -5,9 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Factura;
 
 public interface IFacturaDao extends CrudRepository<Factura, Long>{

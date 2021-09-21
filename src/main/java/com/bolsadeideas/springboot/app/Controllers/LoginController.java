@@ -26,7 +26,7 @@ import com.bolsadeideas.springboot.app.models.entity.Usuario;
 import com.bolsadeideas.springboot.app.models.service.IClientService;
 
 @Controller
-@SessionAttributes("usuario")
+@SessionAttributes("users")
 public class LoginController {
 
 	@Autowired
@@ -67,11 +67,9 @@ public class LoginController {
 		Usuario usuario = new Usuario();
 		/* Pasamos los datos a la vista: */
 		model.put("titulo", "Creación de Usuario.");
-		model.put("usuario", usuario);
+		model.put("users", usuario);
 		
-		clienteService.saveUsuario(usuario);
 		return "usuarioNuevo";
-	
 	}
 
 	@PostMapping("/usuarioNuevo")
@@ -81,8 +79,11 @@ public class LoginController {
 		clienteService.saveUsuario(usuario);
 
 		// Cuando invoca este metodo borra la sesion
+		System.out.println("Se añade el usuario: " + usuario);
+		
+		
 		status.setComplete();
-		return "usuarioNuevo";
+		return "redirect:/listar";
 	}
 		
 }

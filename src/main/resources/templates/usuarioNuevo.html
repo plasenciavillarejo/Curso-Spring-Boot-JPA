@@ -16,14 +16,14 @@
 			<div class="card-header" th:text="${titulo}"></div>
 			<div class="card-body">
 
-				<form th:action="@{/usuarioNuevo}"	method="post">
+				<form th:action="@{/usuarioNuevo}"	th:object="${users}" method="post">
 
 				<div class="form-group row py-2">
 					<div class="col-sm-3">
 						<label for="exampleInputEmail1" class="form-label">User
 							Name</label>
 						<div class="col-sm-6">
-							<input type="text" th:field="*{users.username}" class="form-control"
+							<input type="text" th:field="*{username}" class="form-control"
 								placeholder="username" autofocus required />
 						</div>
 						<div id="userHelp" class="form-text">We'll never share your
@@ -35,7 +35,7 @@
 					<div class="col-sm-3">
 						<label for="exampleInputPassword1" class="form-label">Password</label>
 						<div class="col-sm-6">
-							<input type="text"  class="form-control"
+							<input type="text" th:field="*{password}" class="form-control"
 								placeholder="password" required />
 						</div>
 					</div>
@@ -45,7 +45,7 @@
 					<div class="col-sm-3">
 						<label for="pr" class="form-label">Enabled </label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control"
+							<input type="text" th:field="*{enabled}" class="form-control"
 								placeholder="enabled" autofocus required />
 						</div>
 						<div id="userHelp" class="form-text"></div>
