@@ -24,11 +24,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
+import com.bolsadeideas.springboot.app.models.entity.Role;
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
 import com.bolsadeideas.springboot.app.models.service.IClientService;
 
 @Controller
-@SessionAttributes("users")
+@SessionAttributes({"users", "roles"})
 public class LoginController {
 
 	@Autowired
@@ -67,15 +68,20 @@ public class LoginController {
 	public String usuarioNuevo(Map<String, Object> model) throws Exception {
 
 		Usuario usuario = new Usuario();
+		Role rol = new Role();
+		
 		/* Pasamos los datos a la vista: */
 		model.put("titulo", "Creación de Usuario.");
 		model.put("users", usuario);
+		model.put("roles", rol);
+		
 		
 		return "usuarioNuevo";
 	}
 
 	@PostMapping("/usuarioNuevo")
 	public String guardarUsuario(@Valid Usuario usuario,
+			@Valid Role role,
 			SessionStatus status) {
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -84,6 +90,7 @@ public class LoginController {
 		usuario.setPassword(encriptacion);
 		
 		clienteService.saveUsuario(usuario);
+		clienteService.saveRole(role);
 		
 		status.setComplete();
 		return "redirect:/listar";

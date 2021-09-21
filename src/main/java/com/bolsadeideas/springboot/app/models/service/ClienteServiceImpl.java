@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.bolsadeideas.springboot.app.models.dao.IClienteDao;
 import com.bolsadeideas.springboot.app.models.dao.IFacturaDao;
 import com.bolsadeideas.springboot.app.models.dao.IProductoDao;
+import com.bolsadeideas.springboot.app.models.dao.IRoleDao;
 import com.bolsadeideas.springboot.app.models.dao.IUsuarioDao;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Factura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
+import com.bolsadeideas.springboot.app.models.entity.Role;
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,6 +43,9 @@ public class ClienteServiceImpl implements IClientService {
 	@Autowired
 	private IUsuarioDao usuarioDao;
 
+	@Autowired
+	private IRoleDao roleDao;
+	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Cliente> findall() {
@@ -169,6 +174,11 @@ public class ClienteServiceImpl implements IClientService {
 	@Override
 	public void saveUsuario(Usuario usuario) {
 		usuarioDao.save(usuario);
+	}
+
+	@Override
+	public void saveRole(Role role) {
+		roleDao.save(role);
 	}
 
 

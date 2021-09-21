@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Factura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
+import com.bolsadeideas.springboot.app.models.entity.Role;
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
 
 /* Patron de diseño : Facade
@@ -82,6 +83,7 @@ public interface IClientService {
 
 	 public void saveUsuario(Usuario usuario);
 
+	 public void saveRole(Role role);
 }
 
 
