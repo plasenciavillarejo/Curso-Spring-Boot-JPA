@@ -4,21 +4,29 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
 import com.bolsadeideas.springboot.app.models.service.IClientService;
 
 @Controller
+@SessionAttributes("usuario")
 public class LoginController {
 
 	@Autowired
@@ -53,34 +61,28 @@ public class LoginController {
 		return "login";
 	}
 	
-	@RequestMapping("/usuarioNuevo")
-	public String usuarioNuevo(@Param("username") String username,
-							   @Param("password") String password,
-							   Model model) throws Exception {
-		try {					
-		model.addAttribute("titulo", "Usuario Nuevo");
-		}catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
-		return "usuarioNuevo";
-	}
-	
-	@PostMapping("/usuarioNuevo")
-	public String usuarioNuevoCrear(@Param("username") String username,
-							   @Param("password") String password,
-							   Model model, Map<String, Object> map) throws Exception {
-		List<Usuario> usuario= null;
-		
-		usuario = clienteService.findByUsernameAndPassword(username, password);
-		
-		if (usuario != null) {
-			model.addAttribute("info", "El usuario ya existe");
-		}
-		
+	@RequestMapping(value="/usuarioNuevo")
+	public String usuarioNuevo(Map<String, Object> model) throws Exception {
 
-		return "usuarioNuevo";
+		Usuario usuario = new Usuario();
+		/* Pasamos los datos a la vista: */
+		model.put("titulo", "Creación de Usuario.");
+		model.put("usuario", usuario);
 		
+		clienteService.saveUsuario(usuario);
+		return "usuarioNuevo";
+	
 	}
-	
-	
+
+	@PostMapping("/usuarioNuevo")
+	public String guardarUsuario(@Valid Usuario usuario,
+			SessionStatus status) {
+
+		clienteService.saveUsuario(usuario);
+
+		// Cuando invoca este metodo borra la sesion
+		status.setComplete();
+		return "usuarioNuevo";
+	}
+		
 }

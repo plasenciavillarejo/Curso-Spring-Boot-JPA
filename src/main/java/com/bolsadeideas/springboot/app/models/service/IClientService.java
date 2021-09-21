@@ -78,6 +78,8 @@ public interface IClientService {
 	 
 	 public List<Usuario> findByUsernameAndPassword(String username, String password) throws Exception;
 
+	 public void saveUsuario(Usuario usuario);
+
 }
 
 

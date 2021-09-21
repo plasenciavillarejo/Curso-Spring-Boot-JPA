@@ -164,7 +164,20 @@ public class ClienteServiceImpl implements IClientService {
 	@Override
 	public List<Usuario> findByUsernameAndPassword(String username, String password) throws Exception {
 		return usuarioDao.findByUsernameAndPassword(username, password);
-	}	
+	}
+
+	@Override
+	public void saveUsuario(Usuario usuario) {
+		usuarioDao.save(usuario);
+	}
+
+
+
+
+
+
+
+	
 
 	
 
