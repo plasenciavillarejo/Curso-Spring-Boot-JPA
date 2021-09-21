@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -76,11 +78,12 @@ public class LoginController {
 	public String guardarUsuario(@Valid Usuario usuario,
 			SessionStatus status) {
 
-		clienteService.saveUsuario(usuario);
-
-		// Cuando invoca este metodo borra la sesion
-		System.out.println("Se añade el usuario: " + usuario);
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encriptacion = passwordEncoder.encode(usuario.getPassword());
 		
+		usuario.setPassword(encriptacion);
+		
+		clienteService.saveUsuario(usuario);
 		
 		status.setComplete();
 		return "redirect:/listar";

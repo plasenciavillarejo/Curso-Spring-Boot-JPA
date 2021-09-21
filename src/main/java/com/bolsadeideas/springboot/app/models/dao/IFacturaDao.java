@@ -19,4 +19,6 @@ public interface IFacturaDao extends CrudRepository<Factura, Long>{
 			nativeQuery = true)
 	List<Factura> findByIdFactura(@Param("descripcion") String descripcion) throws Exception;
 
+	
+	
 }
