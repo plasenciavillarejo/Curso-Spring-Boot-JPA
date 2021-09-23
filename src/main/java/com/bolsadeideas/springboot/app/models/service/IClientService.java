@@ -57,7 +57,7 @@ public interface IClientService {
 	 /* ************************************************************************* */
 	 					/* BUSCAR CLIENTES MEDIANTE POSTMAN.*/
 	 /* ************************************************************************* */
-	public List<Cliente> findByLastnameAndFirstname(String nombre, String apellido) throws Exception;;
+	public List<Cliente> findByLastnameAndFirstname(String nombre, String apellido) throws Exception;
 	public List<Cliente> findByNombreAndApellido(String filtro) throws Exception;
 	 
 	

@@ -99,7 +99,7 @@ public class LoginController {
 		
 		clienteService.saveRole(role);
 		
-		List<Role> roles = new ArrayList();
+		List<Role> roles = new ArrayList<Role>();
 		roles.add(role);
 		 
 		usuario.setRoles(roles);
