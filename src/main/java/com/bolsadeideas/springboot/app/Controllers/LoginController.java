@@ -1,6 +1,7 @@
 package com.bolsadeideas.springboot.app.Controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -96,9 +97,15 @@ public class LoginController {
 
 		usuario.setPassword(encriptacion);
 		
-		clienteService.saveUsuario(usuario);
 		clienteService.saveRole(role);
-
+		
+		List<Role> roles = new ArrayList();
+		roles.add(role);
+		 
+		usuario.setRoles(roles);
+		 
+		clienteService.saveUsuario(usuario);
+		
 		status.setComplete();
 		return "redirect:/listar";
 	}
