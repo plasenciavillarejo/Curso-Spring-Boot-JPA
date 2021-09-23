@@ -29,7 +29,7 @@ import com.bolsadeideas.springboot.app.models.entity.Usuario;
 import com.bolsadeideas.springboot.app.models.service.IClientService;
 
 @Controller
-@SessionAttributes({"users", "roles"})
+@SessionAttributes({ "users", "roles" })
 public class LoginController {
 
 	@Autowired
@@ -42,59 +42,65 @@ public class LoginController {
 	
 	@GetMapping("/login")
 	public String login(@RequestParam(name = "error", required = false) String error,
-			@RequestParam(name = "logout", required = false) String logout,
-			Model model, Principal principal, RedirectAttributes flash) {
-	
-		/* 1.- Principal() - Nos permite validar*/
+			@RequestParam(name = "logout", required = false) String logout, Model model, Principal principal,
+			RedirectAttributes flash) {
+
+		/* 1.- Principal() - Nos permite validar */
 		if (principal != null) {
-			/* El usuario ya ha iniciado sesión, por tanto lo redirigimos a la página de inicio*/
+			/*
+			 * El usuario ya ha iniciado sesión, por tanto lo redirigimos a la página de
+			 * inicio
+			 */
 			flash.addFlashAttribute("info", "!!!!! Ya has iniciado sesión anteriormente. !!!!!");
 			return "redirect:/";
-		}	
-		if (error != null) {
-			model.addAttribute("error", "Error en el login: Nombre de usuario o contraseña es incorrecta, por favor vuelva a conectar. !!!");
 		}
-		
-		/* 2.- Cuando nos deslogueamos nos indica una url con la salida "logout" -> http://localhost:8081/login?logout 
-	 	Vamos a capturarlo en la entrada del método @RequestParam y vamos a mandar un mensaje de despedida*/
-	
-		if(logout != null) {
-		model.addAttribute("success", "Has cerrado la sesión con éxito.");
+		if (error != null) {
+			model.addAttribute("error",
+					"Error en el login: Nombre de usuario o contraseña es incorrecta, por favor vuelva a conectar. !!!");
+		}
+
+		/*
+		 * 2.- Cuando nos deslogueamos nos indica una url con la salida "logout" ->
+		 * http://localhost:8081/login?logout Vamos a capturarlo en la entrada del
+		 * método @RequestParam y vamos a mandar un mensaje de despedida
+		 */
+
+		if (logout != null) {
+			model.addAttribute("success", "Has cerrado la sesión con éxito.");
 		}
 		return "login";
 	}
-	
-	@RequestMapping(value="/usuarioNuevo")
+
+	@RequestMapping(value = "/usuarioNuevo")
 	public String usuarioNuevo(Map<String, Object> model) throws Exception {
 
 		Usuario usuario = new Usuario();
 		Role rol = new Role();
-		
-		/* Pasamos los datos a la vista: */
-		model.put("titulo", "Creación de Usuario.");
-		model.put("users", usuario);
-		model.put("roles", rol);
-		
-		
+		try {
+			/* Pasamos los datos a la vista: */
+			model.put("titulo", "Creación de Usuario.");
+			model.put("users", usuario);
+			model.put("roles", rol);
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 		return "usuarioNuevo";
 	}
 
 	@PostMapping("/usuarioNuevo")
-	public String guardarUsuario(@Valid Usuario usuario,
-			@Valid Role role,
-			SessionStatus status) {
+	public String guardarUsuario(@Valid Usuario usuario, @Valid Role role, SessionStatus status) {
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encriptacion = passwordEncoder.encode(usuario.getPassword());
-		
+
 		usuario.setPassword(encriptacion);
-		
 		
 		clienteService.saveUsuario(usuario);
 		clienteService.saveRole(role);
-		
+
 		status.setComplete();
 		return "redirect:/listar";
 	}
-		
+
 }

@@ -198,9 +198,9 @@ public class ClienteControllers {
 		
 		Cliente cliente = new Cliente();
 		/* Pasamos los datos a la vista: */
-		model.put("cliente", cliente);
 		model.put("titulo", "Formulario de Cliente");
-		clienteService.save(cliente);
+		model.put("cliente", cliente);
+		
 		return "form";
 	}
 

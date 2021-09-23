@@ -22,7 +22,6 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "clientes")
@@ -40,7 +39,6 @@ public class Cliente implements Serializable {
 	@NotEmpty
 	private String apellido;
 
-	@NotEmpty
 	@Email
 	private String email;
 

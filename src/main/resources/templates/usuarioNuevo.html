@@ -22,14 +22,14 @@
 						<div class="form-group col-md-6">
 							<label for="exampleInputEmail1" class="form-label">User
 								Name</label> <input type="text" th:field="*{username}"
-								class="form-control" placeholder="username" autofocus required />
+								class="form-control" placeholder="username" autofocus required/>
 							<div id="userHelp" class="form-text">We'll never share your
 								user with anyone else.</div>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="exampleInputPassword1" class="form-label">Password</label>
 							<input type="text" th:field="*{password}" class="form-control"
-								placeholder="password" required />
+								placeholder="password" autofocus required/>
 						</div>
 					</div>
 
@@ -38,21 +38,22 @@
 							<label for="pr" class="form-label">Enabled </label>
 							<div class="col-sm-6">
 								<input type="text" th:field="*{enabled}" class="form-control"
-									placeholder="enabled" autofocus required />
+									placeholder="enabled" autofocus required/>
 							</div>
 							<div id="userHelp" class="form-text"></div>
 						</div>
 
-					<div class="form-group col-md-6" th:object="${roles}">
-						<div class="col-sm-6">
-							<label for="pr" class="form-label">Roles </label>
+						<div class="form-group col-md-6" th:object="${roles}">
 							<div class="col-sm-6">
-								<input type="text" th:field="*{rol}" class="form-control"
-									placeholder="enabled" autofocus required />
+								<label for="pr" class="form-label">Roles </label>
+								<div class="col-sm-6">
+									<input type="text" th:field="*{rol}" class="form-control"
+										placeholder="enabled" autofocus required/>
+								</div>
 							</div>
 						</div>
+						
 					</div>
-				</div>
 					<div class="mb-1 py-4">
 						<input type="submit" class="btn btn-lg btn-primary btn-block"
 							value="Crear Usuario" /> <input type="hidden"

@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import com.sun.istack.NotNull;
 
 
 @Entity
@@ -23,17 +26,16 @@ public class Usuario implements Serializable {
 	private Long id;
 
 	@Column(length = 45, unique = true)
+	@NotEmpty(message = "El Campo Usuario es Requerido.")
 	private String username;
 
 	@Column(length = 60)
+	@NotEmpty(message = "El campo Password es Requerido.")
 	private String password;
 
+	@NotNull
+	@NotEmpty(message = "Este campo nunca puede estár a 0")
 	private Boolean enabled;
-	
-	/*
-	  1.- Indicamos la relación que tiene con la clase ROL. 
-	  2.- La tenemos que mapear usando OneToMany ya que un usuario puede tener muchos roles
-	 */
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
