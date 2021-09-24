@@ -1,12 +1,14 @@
 package com.bolsadeideas.springboot.app.models.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Factura;
@@ -84,6 +86,8 @@ public interface IClientService {
 	 public void saveUsuario(Usuario usuario);
 
 	 public void saveRole(Role role);
+
+	 public Usuario findByUsuername(String username) throws Exception;
 }
 
 

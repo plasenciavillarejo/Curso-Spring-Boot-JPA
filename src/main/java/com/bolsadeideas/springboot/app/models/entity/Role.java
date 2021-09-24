@@ -17,9 +17,9 @@ import javax.persistence.UniqueConstraint;
    
 @Entity
 /* 1.- Mapemos la clase Role a la clase creada en bd -> roles. */
-@Table(name = "roles")
+@Table(name = "roles",
 /* 2.- Añadimos la llaves unicas como están indicadas en la tabla -> uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","rol" */
-//uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","rol"})})
+uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","rol"})})
 public class Role implements Serializable {
 
 	@Id
@@ -28,10 +28,10 @@ public class Role implements Serializable {
 
 	private String rol;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id",insertable = true, updatable = true)
-	Usuario usuario;
-	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="user_id")
+//	Usuario usuario;
+//	
 	
 	public Long getId() {
 		return id;

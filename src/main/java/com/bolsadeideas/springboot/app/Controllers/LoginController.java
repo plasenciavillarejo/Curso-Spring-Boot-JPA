@@ -9,13 +9,17 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,10 +28,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bolsadeideas.springboot.app.models.dao.IUsuarioDao;
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Role;
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
 import com.bolsadeideas.springboot.app.models.service.IClientService;
+import com.bolsadeideas.springboot.app.models.service.JPAUserDetailService;
 
 @Controller
 @SessionAttributes({ "users", "roles" })
@@ -35,12 +41,16 @@ public class LoginController {
 
 	@Autowired
 	private IClientService clienteService;
-	
-	/* 1.- Creamos nuestro LoginControlle para implementar nuestro Login.
-	   2.- Va a retornar la vista login.html
-	   3.- Se valida mediante el Objeto Principal si el usuario ya ha iniciado sesión, si es así, lo redirigimos a la página de inicio
-	   4.- Vamos a manejar los errores (Usuario no exista o error en la password) mediante @RequestParameter con el valor que no están enviado value="error"*/
-	
+
+	/*
+	 * 1.- Creamos nuestro LoginControlle para implementar nuestro Login. 2.- Va a
+	 * retornar la vista login.html 3.- Se valida mediante el Objeto Principal si el
+	 * usuario ya ha iniciado sesión, si es así, lo redirigimos a la página de
+	 * inicio 4.- Vamos a manejar los errores (Usuario no exista o error en la
+	 * password) mediante @RequestParameter con el valor que no están enviado
+	 * value="error"
+	 */
+
 	@GetMapping("/login")
 	public String login(@RequestParam(name = "error", required = false) String error,
 			@RequestParam(name = "logout", required = false) String logout, Model model, Principal principal,
@@ -90,21 +100,32 @@ public class LoginController {
 	}
 
 	@PostMapping("/usuarioNuevo")
-	public String guardarUsuario(@Valid Usuario usuario, @Valid Role role, SessionStatus status) {
-
+	public String guardarUsuario(@Valid Usuario usuario, @Valid Role rol, Model model, 
+			Principal principal, SessionStatus status,
+			@Param(value="username") String username) throws Exception {
+		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encriptacion = passwordEncoder.encode(usuario.getPassword());
+		
+		try {
+			if(clienteService.findByUsuername(username) != null) {
+				model.addAttribute("error", "Error, el usuario existe en la base de datos. !!!");
+				return "usuarioNuevo";
+			}
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}		
 
+						
 		usuario.setPassword(encriptacion);
 		
-		clienteService.saveRole(role);
-		
 		List<Role> roles = new ArrayList<Role>();
-		roles.add(role);
-		 
+		roles.add(rol);
+
 		usuario.setRoles(roles);
-		 
-		clienteService.saveUsuario(usuario);
+				
+			clienteService.saveUsuario(usuario);
+			clienteService.saveRole(rol);
 		
 		status.setComplete();
 		return "redirect:/listar";

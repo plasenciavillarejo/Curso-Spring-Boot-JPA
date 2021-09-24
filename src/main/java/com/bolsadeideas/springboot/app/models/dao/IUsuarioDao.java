@@ -2,6 +2,7 @@ package com.bolsadeideas.springboot.app.models.dao;
 
 import java.lang.annotation.Native;
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.annotations.SQLInsert;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,6 +22,7 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long>{
 	List<Usuario> findByUsernameAndPassword(@Param("username") String username,
 									 		@Param("password") String password) throws Exception;
 	
-
+	@Query(value="select c from #{#entityName} c where c.username = ?1")
+	public Usuario findByUsuername(@Param("username") String username) throws Exception;
 	
 }	
