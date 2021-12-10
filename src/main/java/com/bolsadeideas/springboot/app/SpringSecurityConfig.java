@@ -19,7 +19,8 @@ import com.bolsadeideas.springboot.app.models.service.JPAUserDetailService;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	
-	/* Implementamos un método para poder registrar y configurar los usuario de nuestro sistema seguridad para registrar por ejemplo:
+	/* Implmeneto una prueba
+	 * Implementamos un método para poder registrar y configurar los usuario de nuestro sistema seguridad para registrar por ejemplo:
 	 	Usuario admin, Asignar un username o también asignar roles.*/
 	
 	

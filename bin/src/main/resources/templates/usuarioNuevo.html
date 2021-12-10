@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- Aï¿½adimos el nameSpace de seguridad de Thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+		<!-- bg-light: Le da un fondo de color a la tabla grisaceo -->
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<form th:action="@{/usuarioNuevo}" th:object="${users}"
+					method="post">
+
+					<div class="form-row row py-2">
+						<div class="form-group col-md-6">
+							<label for="exampleInputEmail1" class="form-label">User
+								Name</label> <input type="text" th:field="*{username}"
+								class="form-control" placeholder="username" autofocus required/>
+							<div id="userHelp" class="form-text">We'll never share your
+								user with anyone else.</div>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="exampleInputPassword1" class="form-label">Password</label>
+							<input type="text" th:field="*{password}" class="form-control"
+								placeholder="password" autofocus required/>
+						</div>
+					</div>
+
+					<div class="form-group row py-2">
+						<div class="form-group col-md-6">
+							<label for="pr" class="form-label">Enabled </label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{enabled}" class="form-control"
+									placeholder="enabled" autofocus required/>
+							</div>
+							<div id="userHelp" class="form-text"></div>
+						</div>
+
+						<div class="form-group col-md-6" th:object="${roles}">
+							<div class="col-sm-6">
+								<label for="pr" class="form-label">Roles </label>
+								<div class="col-sm-6">
+									<input type="text" th:field="*{rol}" class="form-control"
+										placeholder="enabled" autofocus required/>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="mb-1 py-4">
+						<input type="submit" class="btn btn-lg btn-primary btn-block"
+							value="Crear Usuario" /> <input type="hidden"
+							th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

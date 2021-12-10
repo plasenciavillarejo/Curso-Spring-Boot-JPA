@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- A?adimos el nameSpace de seguridad de Thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- Vamos a ordernar la plantilla, llamando al layout mediante el th:thymeleaf -->
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<!-- Estilo Container de BOOTSTRAP -->
+	<div class="container py-4">
+
+		<!-- 	Vamos a crear paneles de BOOSTRAP	 -->
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="clard-body">
+
+
+				<h4 class="card-title py-4">
+					<a class="btn btn-primary btn-xs" th:href="@{'/factura/form/' + ${cliente.id}}"
+						th:text="' Crear Factura '"></a>
+				</h4>
+
+
+				<!-- 	La idea es mostrar todas las facturas asociadas al cliente mediante una tabla -->
+			
+				<!-- Mostraremos este texto cuando el cliente no tenga facturas asociadas con el  -->
+				<div class="alert alert-info my-4"
+					th:if="${#lists.isEmpty(cliente.facturas)}"
+					th:text="'No hay facturas asignadas para el cliente ' + ${cliente.nombre} + ' ' + ${cliente.apellido}"></div>
+				
+				<!-- Cuando este vacia debe desaparecer la tabla -->
+				<table th:if="${not #lists.isEmpty(cliente.facturas)}"
+				 class="table table-bordered table-stripedmy-4">
+				<!-- Vamos a ordenarlo y resalte el nombre de las columnas. -->
+					<thead class="thead-dark">
+						<!-- Nombre de Columnas -->
+						<tr>
+							<th>Folio</th>
+							<th>Descripcion</th>
+							<th>Fecha</th>
+							<th>Total</th>
+							<th>Ver Detalle</th>
+							<th>Eliminar Factura</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Recorremos con un bucle las facturas para mostrar sus datos. -->
+						<tr th:each="factura: ${cliente.facturas}">
+							<td th:text="${factura.id}"></td>
+							<td th:text="${factura.descripcion}"></td>
+							<td th:text="${factura.createAt}"></td>
+							<td th:text="${factura.total}"></td>
+							<td><a class="btn btn-primary btn-xs" th:href="@{'/factura/ver/' + ${factura.id}}" th:text="'detalle'"></a></td>
+							<td><a class="btn btn-primary btn-xs" th:href="@{'/factura/eliminar/' + ${factura.id}}" 
+								th:text="'eliminar'" onclick="return confirm('?Est?s seguro que desea eliminar la factura?')"></a></td>
+						</tr>
+					</tbody>
+				</table>
+
+
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
