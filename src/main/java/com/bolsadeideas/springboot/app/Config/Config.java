@@ -17,8 +17,6 @@ public class Config {
 		mailSenderImpl.setPort(587);
 		mailSenderImpl.setUsername("plasenciavillarejo@gmail.com");
 		mailSenderImpl.setPassword("excobiwlzscnrxol");
-		
-		//
 
 		Properties props = mailSenderImpl.getJavaMailProperties();
 
