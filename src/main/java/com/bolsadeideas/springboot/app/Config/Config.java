@@ -15,8 +15,8 @@ public class Config {
 		mailSenderImpl.createMimeMessage();
 		mailSenderImpl.setHost("smtp.gmail.com");
 		mailSenderImpl.setPort(587);
-		mailSenderImpl.setUsername("plasenciavillarejo@gmail.com");
-		mailSenderImpl.setPassword("excobiwlzscnrxol");
+		mailSenderImpl.setUsername("joseplasenc@gmail.com");
+		mailSenderImpl.setPassword("tjqgihlfqkeanstx");
 
 		Properties props = mailSenderImpl.getJavaMailProperties();
 

@@ -22,7 +22,6 @@ public class EmailServiceImpl implements EmailService {
 		try {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
 			messageHelper.setTo("jose.plasencia@getronics.com");
-			messageHelper.setFrom("joseplasenc@gmail.com");
 			messageHelper.setText("Esto es un correo");
 			messageHelper.setSubject("Correo de Prueba");
 			//messageHelper.addAttachment("log.txt", new File("C:\\Log\\log.txt"));
