@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+	<!-- Etiqueta Nav es un menú de navegación. (Navega atraves de páginas.) -->
+	<nav th:fragment="paginator">
+		<ul class ="pagination">
+		
+		<!-- Preguntamos si es la primera pagina para desactivar el item. th:class="${page.first? 'page-item disabled': 'page-item'}" -->
+			<li class="page-item" th:class="${page.first? 'page-item disabled': 'page-item'}">
+		<!-- Validamos si es la primera página con el metodo creado. isFirts -->
+			<span class="page-link"  th:if="${page.first}"> Primera</span>			
+		<!-- Si no lo es lo redirigimos a la URL, pagina 0 ya que es la primera página -->
+			<a class="page-link" th:if="${not page.first}" th:href="@{${page.url}(page=0)}">Primera</a>
+			</li>
+			
+			<li class="page-item" th:class="${not page.hasPrevious? 'page-item disabled': 'page-item'}">
+		<!-- Validamos la pagina siguiente. hasPrevious -->
+			<span class="page-link"  th:if="${not page.hasPrevious}">&laquo;</span>
+		<!-- Si no lo es lo redirigimos a la URL de la última página -1 -->
+			<a class="page-link"  th:if="${page.hasPrevious}" th:href="@{${page.url}(page=${page.paginaActual-2})}">&laquo;</a>
+			</li>
+			
+		<!-- Sirve para mostrar en la pantalla el número de paginas en las cuales recorremos , 1,2,3,4...
+		 Vamos a desactivar el boton cuando nos situemos en la pagina. Pagina 3, una vez dentro de ella desactivamos el boton. De está forma sabemos que estamos 
+		dentro th:class="${item.actual?} 'page-item active' : 'page-item'" -->
+		
+			<li th:each="item: ${page.paginas}" class="page-item" th:class="${item.actual? 'page-item active' : 'page-item'}" >
+			<span class="page-link"  th:if="${item.actual}" th:text="${item.numero}"></span>
+			<a class="page-link"  th:if="${not item.actual}" th:href="@{${page.url}(page=${item.numero-1})}" th:text="${item.numero}"></a>
+			</li>
+			
+			<li class="page-item" th:class="${not page.hasNext? 'page-item disabled': 'page-item'}">
+		<!-- Validamos la pagina siguiente. hasNext -->
+			<span class="page-link"  th:if="${not page.hasNext}">&raquo;</span>
+		<!-- Si no lo es lo redirigimos a la URL de la última página -1 -->
+			<a class="page-link"  th:if="${page.hasNext}" th:href="@{${page.url}(page=${page.paginaActual})}">&raquo;</a>
+			</li>
+
+			<li class="page-item" th:class="${page.last? 'page-item disabled': 'page-item'}">
+		<!-- Validamos si es la Última página con el metodo creado. isLast -->
+			<span class="page-link"  th:if="${page.last}">&Uacute;ltima</span>
+		<!-- Si no lo es lo redirigimos a la URL de la última página -1 -->
+			<a class="page-link"  th:if="${not page.last}" th:href="@{${page.url}(page=${page.totalPaginas-1})}">&Uacute;ltima</a>
+			</li>
+		</ul>
+	</nav>
+
+</body>
+</html>

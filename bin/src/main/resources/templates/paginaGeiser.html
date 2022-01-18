@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- A�adimos el nameSpace de seguridad de Thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<!-- Py-4 : Nos da un margen de ancchura en el "listado de clientes". -->
+	<div class="container py-4">
+
+		<!-- bg-light: Le da un fondo de color a la tabla grisaceo -->
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<form th:action="@{/paginaGeiser}" th:object="${cliente}" method="get">
+					<div class="form-group row py-2">
+						<label class="col-sm-2 col-form-label">Email Cliente:</label>
+						<div class="col-sm-3">
+							<input type="text" th:field="*{email}" class="form-control"
+								th:errorsClass="'form-control alert-danger'" />
+						<small class="form-text text-danger "
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+					</div>
+					
+					<div class="form-group row py-2">
+						<label class="col-sm-2 col-form-label">Fecha Cliente:</label>
+						<div class="col-sm-3">
+							<input type="text" th:field="*{createAt}" class="form-control"
+								th:errorsClass="'form-control alert-danger'" />
+						<small class="form-text text-danger "
+								th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<input type="submit" value="Buscar Cliente"
+							class="btn btn-primary" id="boton" /> <a
+							class="btn btn-primary" th:href="@{/listar}"
+							th:text="'&laquo; Atras'"></a>
+					</div>				
+
+				</form>
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cliente: ${clientes}">
+							<td th:text="${cliente.id}"></td>
+							<td th:text="${cliente.nombre}"></td>
+							<td th:text="${cliente.apellido}"></td>
+							<td th:text="${cliente.email}"></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

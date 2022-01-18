@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- Aï¿½adimos el nameSpace de seguridad de Thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="layout/layout :: head">
+</head>
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+
+	<div class="container py-4">
+
+		<!-- bg-light: Le da dun fondo de color azul turquesa y letras blancas -->
+		<div class="card bg-info text-white">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+			
+			PRUEBA DE REDIRECCIÓN.
+			
+			</div>
+		</div>
+	</div>
+</body>
+</html>

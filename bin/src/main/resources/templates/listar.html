@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- A�adimos el nameSpace de seguridad de Thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+	
+	<!-- Py-4 : Nos da un margen de ancchura en el "listado de clientes". -->
+	<div class="container py-4">
+		
+		<!-- bg-light: Le da un fondo de color a la tabla grisaceo -->
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+			<!-- Creamos el link para crear un cliente-->
+			<h4 class="card-title">
+				<!-- Implementamos la seguridad en el boton de crear cliente, preguntaremos si el usuario tiene ROL de Admin -->
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/form}"> Crear Cliente </a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/buscar}"> Buscar Cliente </a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/factura/buscarfactura}"> Buscar Factura </a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/prueba}"> Vista Prueba </a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-sm" th:href="@{/paginaGeiser}"> Consulta Geiser </a>
+			</h4>
+			
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Email</th>
+						<th>Fecha</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')">Crear Factura</th>
+						<!-- Metodo para editar el cliente -->
+						<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="cliente: ${clientes}">
+			<!-- Le damos un href al id para que nos redirija a la vista ver la cual tendremos implementado la factura -->			
+						<td><a class="btn btn-primary btn-xs" th:href="@{/ver/} + ${cliente.id}" th:text="${cliente.id}"></a></td>
+						<td th:text="${cliente.nombre}"></td>
+						<td th:text="${cliente.apellido}"></td>
+						<td th:text="${cliente.email}"></td>
+						<td th:text="${cliente.createAt}"></td>
+						<!-- Mantenemos estructura de Factura Controller, /factura/form y luego el clienteId-->
+						<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-success btn-xs" th:href="@{'/factura/form/' + ${cliente.id}}" th:text="' Crear Factura '"></a></td>
+						<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-primary btn-xs"
+							th:href="@{/editar/} + ${cliente.id}" th:text="'editar'"></a></td>
+						<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger btn-xs"
+							th:href="@{/eliminar/} + ${cliente.id}" th:text="'eliminar'"
+							onclick="return confirm('Estas Seguro que quieres eliminar el Cliente')"></a></td>
+					</tr>
+				</tbody>
+			</table>
+		<!--  Anadimos el fragmento del paginador. -->	
+			<nav th:replace="paginator-nav :: paginator"></nav>
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>
