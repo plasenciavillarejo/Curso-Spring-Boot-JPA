@@ -44,10 +44,10 @@ public class Cliente implements Serializable {
 
 	@NotNull
 	@Column(name = "create_At")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 
 	/*
-	  Vamos a modicar el campo createAt para que acepte cualquier tipo de fecha y
+	 * Vamos a modicar el campo createAt para que acepte cualquier tipo de fecha y
 	 * no de error.
 	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -65,14 +65,16 @@ public class Cliente implements Serializable {
 //		createAt = new Date();
 //	}
 
-	/* Un cliente puede tener muchas facturas, usamos el método list 
-	  Un cliente muchas facturas = OneToMany
-	  Aquí es más recomenado el Lazy ya que traera una a una la factura del cliente, con EAGER traera todas las facturas de un mismo cliente a la misma vez
-	  puede sobrecargar la BD.
-	  CascadeType.All = Se reliza todas las consultas en cadena. 
-	  MappedBy = Mapeamos el objeto de la clase Factura, "cliente". De esta forma hacemos que sea vireccional.*/
+	/*
+	 * Un cliente puede tener muchas facturas, usamos el método list Un cliente
+	 * muchas facturas = OneToMany Aquí es más recomenado el Lazy ya que traera una
+	 * a una la factura del cliente, con EAGER traera todas las facturas de un mismo
+	 * cliente a la misma vez puede sobrecargar la BD. CascadeType.All = Se reliza
+	 * todas las consultas en cadena. MappedBy = Mapeamos el objeto de la clase
+	 * Factura, "cliente". De esta forma hacemos que sea bireccional.
+	 */
 
-	@OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Factura> facturas;
 
 	/* Generamos un SuperConstructors */
@@ -80,8 +82,10 @@ public class Cliente implements Serializable {
 		facturas = new ArrayList<Factura>();
 	}
 
-	/* Creamos el método de agregar factura que sería para agregar factura a factura
-	  en la clase cliente. 	 */
+	/*
+	 * Creamos el método de agregar factura que sería para agregar factura a factura
+	 * en la clase cliente.
+	 */
 	public void addFactura(Factura factura) {
 		facturas.add(factura);
 	}
@@ -140,9 +144,7 @@ public class Cliente implements Serializable {
 
 	@Override
 	public String toString() {
-		return nombre + " " +apellido;
+		return nombre + " " + apellido;
 	}
 
-	
-	
 }

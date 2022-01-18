@@ -11,11 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
-
 
 @Entity
 @Table(name = "users")
@@ -40,6 +40,10 @@ public class Usuario implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private List<Role> roles;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "idUsuario")
+	private List<UsuarioGrupoTrabajo> usuarioGrupoTrabajo;
 
 	public Long getId() {
 		return id;
@@ -80,7 +84,6 @@ public class Usuario implements Serializable {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-
 
 	private static final long serialVersionUID = 1L;
 

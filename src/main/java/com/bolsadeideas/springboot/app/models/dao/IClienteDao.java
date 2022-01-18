@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.models.dao;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -38,4 +39,13 @@ public interface IClienteDao extends PagingAndSortingRepository<Cliente, Long> {
 		 public Cliente findOne(Long id);
 		 public void delete (long id);
 		 */
+
+	
+	@Query(value = "SELECT * FROM clientes where email = :email and create_at = :createAt",
+			nativeQuery = true)
+	//@Query("select c from Cliente c where c.create_At = :fecha")
+	List<Cliente> findByDate(@Param("email") String email,
+							@Param("createAt") String createAt) throws Exception;
+	
+	
 }

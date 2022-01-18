@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.models.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -185,6 +186,19 @@ public class ClienteServiceImpl implements IClientService {
 	@Override
 	public Usuario findByUsuername(String username) throws Exception {
 		return usuarioDao.findByUsername(username);
+	}
+
+	/* Consulta GEISER. */
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Cliente> findByDate(String email, String createAt) throws Exception {
+		try {
+			return clienteDao.findByDate(email, createAt);
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
 	}
 
 

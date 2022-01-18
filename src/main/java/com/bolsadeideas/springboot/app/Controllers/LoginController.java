@@ -100,33 +100,31 @@ public class LoginController {
 	}
 
 	@PostMapping("/usuarioNuevo")
-	public String guardarUsuario(@Valid Usuario usuario, @Valid Role rol, Model model, 
-			Principal principal, SessionStatus status,
-			@Param(value="username") String username) throws Exception {
-		
+	public String guardarUsuario(@Valid Usuario usuario, @Valid Role rol, Model model, Principal principal,
+			SessionStatus status, @Param(value = "username") String username) throws Exception {
+
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encriptacion = passwordEncoder.encode(usuario.getPassword());
-		
+
 		try {
-			if(clienteService.findByUsuername(username) != null) {
+			if (clienteService.findByUsuername(username) != null) {
 				model.addAttribute("error", "Error, el usuario existe en la base de datos. !!!");
 				return "usuarioNuevo";
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw new Exception(e.getMessage());
-		}		
+		}
 
-						
 		usuario.setPassword(encriptacion);
-		
+
 		List<Role> roles = new ArrayList<Role>();
 		roles.add(rol);
 
 		usuario.setRoles(roles);
-				
-			clienteService.saveUsuario(usuario);
-			clienteService.saveRole(rol);
-		
+
+		clienteService.saveUsuario(usuario);
+		clienteService.saveRole(rol);
+
 		status.setComplete();
 		return "redirect:/listar";
 	}

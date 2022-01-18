@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.models.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,6 +89,12 @@ public interface IClientService {
 	 public void saveRole(Role role);
 
 	 public Usuario findByUsuername(String username) throws Exception;
+	 
+		/* ************************************************************************* */ 
+		/* 						Consulta Geiser.      			 */
+		/* ************************************************************************* */	
+	 
+	 public List<Cliente> findByDate(String email, String createAt) throws Exception;
 }
 
 

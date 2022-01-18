@@ -30,7 +30,7 @@ public class Role implements Serializable {
 
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name="user_id")
-//	Usuario usuario;
+//	private Usuario usuario;
 //	
 	
 	public Long getId() {

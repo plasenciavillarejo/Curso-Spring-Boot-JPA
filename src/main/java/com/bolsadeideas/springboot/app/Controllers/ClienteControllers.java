@@ -1,18 +1,17 @@
 package com.bolsadeideas.springboot.app.Controllers;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.Past;
 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +20,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,16 +34,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
+import com.bolsadeideas.springboot.app.models.service.EmailService;
 import com.bolsadeideas.springboot.app.models.service.IClientService;
 import com.bolsadeideas.springboot.app.util.paginator.PageRender;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Controller
 /*
@@ -59,12 +55,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ClienteControllers {
 
 	protected final Log logger = LogFactory.getLog(this.getClass());
-
+	
 // Inyectamos de forma directa el clienteService el cual se usa para el método fachada, de forma que no se accede de forma
 //	directa a los métodos DAO
 	@Autowired
 	private IClientService clienteService;
 
+	@Autowired
+	private EmailService mailService;
+	
 	/* 1.- Creamos la clase Logger. */
 	private final Logger log = (Logger) LoggerFactory.getLogger(this.getClass());
 	
@@ -93,6 +92,7 @@ public class ClienteControllers {
 		model.put("cliente", cliente);
 		model.put("titulo","Detalle cliente:  " + cliente.getNombre() + " " + cliente.getApellido());
 		return "ver";
+	
 	}
 		
 
@@ -101,7 +101,8 @@ public class ClienteControllers {
 	/* ----------------------------------------------------------------------- */
 	
 	/*
-	Listar de forma continuada, sin usar page render // @RequestMapping(value="/listar", method = RequestMethod.GET)
+	Listar de forma continuada, sin usar page render 
+	//@RequestMapping(value="/listar", method = RequestMethod.GET)
 	@GetMapping(value = "/listar")
 	public String Listar(Model model) {
 		model.addAttribute("titulo", "Listado de Clientes");
@@ -200,6 +201,7 @@ public class ClienteControllers {
 		/* Pasamos los datos a la vista: */
 		model.put("titulo", "Formulario de Cliente");
 		model.put("cliente", cliente);
+		mailService.sendEmail();
 		
 		return "form";
 	}
@@ -300,7 +302,6 @@ public class ClienteControllers {
 	   
 	@RequestMapping(value = "/buscar")
 	public String buscarcliente() throws Exception{
-
 		return "buscar";
 	}
   	
@@ -422,5 +423,25 @@ public class ClienteControllers {
 		return ResponseEntity.status(HttpStatus.OK);
 	}
 	
+	
+	/* Registro Geiser. */
+	
+	@GetMapping(value="/paginaGeiser")
+	public String paginaGeiser(@Param(value = "email") String email,
+							  @Param(value ="createAt") String createAt ,Model model) throws Exception {
+		try {
+		model.addAttribute("titulo", "Buscar cliente por Fecha");
+		model.addAttribute("clientes", clienteService.findByDate(email, createAt));
+		log.info("Valor de la correo es :" + email + "y el valor de la fecha es :" + createAt);
+		} catch (Exception e) {
+			log.info("Valor de la correo es :" + email + "y el valor de la fecha es :" + createAt);
+			e.printStackTrace();
+		} 
+		
+		return "paginaGeiser";
+		
+	}
+	
+	
+	
 }
-
