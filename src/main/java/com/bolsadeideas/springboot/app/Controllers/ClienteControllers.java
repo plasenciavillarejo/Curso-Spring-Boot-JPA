@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.Controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -10,10 +11,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.Past;
 
 import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -58,7 +62,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @SessionAttributes("cliente")
 public class ClienteControllers {
 
-	protected final Log logger = LogFactory.getLog(this.getClass());
+	//protected final Log log = LogFactory.getLog(this.getClass());
+	//Logger log = (Logger) LogManager.getLogger(this.getClass());
 
 // Inyectamos de forma directa el clienteService el cual se usa para el método fachada, de forma que no se accede de forma
 //	directa a los métodos DAO
@@ -122,12 +127,14 @@ public class ClienteControllers {
 			Authentication authentication,
 			HttpServletRequest request) {
 		
+		log.info("Se ha iniciado el debug de la aplicacioón");
+		
 	/* Diferentes forma de obtener el ROL del usuario logueado.*/	
 	
 		/* 1.- Método -> Vamos a implementar el usuario authenticado en el controlador. 
 	   	Nos mostrara el usuario por consola una vez que nos registremos. */	
 		if(authentication != null ) {
-			logger.info("Hola el usuario autenticado es: ".concat(authentication.getName()));
+			log.info("Hola el usuario autenticado es: ".concat(authentication.getName()));
 		}	
 		
 		
@@ -136,31 +143,31 @@ public class ClienteControllers {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		if (auth != null) {
-			logger.info("Utilizando forma estática SecurityContextHolder.getContext().getAuthentication(): Usuario Autenticado: "+ auth.getName().concat(" tienes acceso!"));
+			log.info("Utilizando forma estática SecurityContextHolder.getContext().getAuthentication(): Usuario Autenticado: "+ auth.getName().concat(" tienes acceso!"));
 		}
 
 		/* 3.- Metodo -> Llamamos a la clase creada -> Public boolean hasRole(String role) <- y validamos.*/	
 		
 		if(hasRole("ROLE_ADMIN")) {
-			logger.info("Utilizando la clase creada Public boolean hasRole(String role): Usuario Autenticado: ".concat(auth.getName()).concat(" tienes acceso!"));
+			log.info("Utilizando la clase creada Public boolean hasRole(String role): Usuario Autenticado: ".concat(auth.getName()).concat(" tienes acceso!"));
 		}else {
-			logger.info("Hola ".concat(auth.getName()).concat(" NO tienes acceso!"));
+			log.info("Hola ".concat(auth.getName()).concat(" NO tienes acceso!"));
 		}
 		
 		/* 4.- Metodo -> Usando clase integrada en spring. */
 		SecurityContextHolderAwareRequestWrapper securityContext = new SecurityContextHolderAwareRequestWrapper(request,"ROLE_");
 		
 		if(securityContext.isUserInRole("ADMIN")) {
-			logger.info("Utilizando forma SecurityContextHolderAwareRequestWrapper: Usuario Autenticado: "+ auth.getName().concat(" tienes acceso!"));
+			log.info("Utilizando forma SecurityContextHolderAwareRequestWrapper: Usuario Autenticado: "+ auth.getName().concat(" tienes acceso!"));
 		}else {
-			logger.info("Utilizando forma SecurityContextHolderAwareRequestWrapper: Usuario Autenticado: "+ auth.getName().concat(" No tienes acceso!"));
+			log.info("Utilizando forma SecurityContextHolderAwareRequestWrapper: Usuario Autenticado: "+ auth.getName().concat(" No tienes acceso!"));
 		}
 		
 		/* 5.- Metodo -> Usando HttpServletRequest */
 		if(request.isUserInRole("ROLE_ADMIN")) {
-			logger.info("Utilizando forma HttpServletRequest: Usuario Autenticado: "+ auth.getName().concat(" tienes acceso!"));
+			log.info("Utilizando forma HttpServletRequest: Usuario Autenticado: "+ auth.getName().concat(" tienes acceso!"));
 		}else {
-			logger.info("Utilizando forma HttpServletRequest: Usuario Autenticado: "+ auth.getName().concat(" No tienes acceso!"));
+			log.info("Utilizando forma HttpServletRequest: Usuario Autenticado: "+ auth.getName().concat(" No tienes acceso!"));
 		}
 		
 		
@@ -328,16 +335,23 @@ public class ClienteControllers {
 	
 	
 	/* 6.- Busqueda correcta de un usuario por Nombre y Apellido. */
-		
+
+	@Scope("request")
 	@RequestMapping(value = "/buscar", method = RequestMethod.GET)
-	public String buscarC(@Param(value = "nombre") String nombre, 
-			   			  @Param(value = "apellido") String apellido, Model model) throws Exception{
-		try {
+	public String buscarC(@Param(value = "nombre") String nombre, @Param(value = "apellido") String apellido,
+			Model model) throws Exception {
+
+		// Inicialización del bean. 
+		model.addAttribute(new Cliente());
+		
+		List<Cliente> buscarCliente = new ArrayList<Cliente>();
+		buscarCliente = clienteService.findByLastnameAndFirstname(nombre, apellido);
+		
+		try {	
 			model.addAttribute("titulo", "Buscar cliente");
-			model.addAttribute("clientes", clienteService.findByLastnameAndFirstname(nombre, apellido));
-			
+			model.addAttribute("clientes", buscarCliente);
 			log.info("Dentro de la clase Buscar Un Cliente por Nombre y Apellido");
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 		return "buscar";
@@ -370,7 +384,7 @@ public class ClienteControllers {
 	/*   for(GrantedAuthority authority: authorities) {
 		 4.- Validamos que tiene el ROLE, de modo que tiene permisos, por tanto nos devolvera un true. 	
 			if(role.equals(authority.getAuthority())) {
-				logger.info("Hola ".concat(authentication.getName()).concat(" tu role es:").concat(authority.getAuthority()));
+				log.info("Hola ".concat(authentication.getName()).concat(" tu role es:").concat(authority.getAuthority()));
 				return true;
 			}			
 		}*/

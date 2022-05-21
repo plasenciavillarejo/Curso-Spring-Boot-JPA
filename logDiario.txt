@@ -1,0 +1,349 @@
+2022-05-21 01:25:02.119  INFO 68455 --- [restartedMain] c.b.s.a.SpringBootEjemploJpaApplication  : Starting SpringBootEjemploJpaApplication using Java 17.0.1 on MacBook-Air-de-Jose.local with PID 68455 (/Users/joseplasenciavillarejo/git/Curso-Spring-Boot-JPA/target/classes started by joseplasenciavillarejo in /Users/joseplasenciavillarejo/git/Curso-Spring-Boot-JPA)
+2022-05-21 01:25:02.123  INFO 68455 --- [restartedMain] c.b.s.a.SpringBootEjemploJpaApplication  : No active profile set, falling back to default profiles: default
+2022-05-21 01:25:02.433  INFO 68455 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-21 01:25:02.465  INFO 68455 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29 ms. Found 5 JPA repository interfaces.
+2022-05-21 01:25:02.667  INFO 68455 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8082 (http)
+2022-05-21 01:25:02.673  INFO 68455 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-05-21 01:25:02.673  INFO 68455 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2022-05-21 01:25:02.690  INFO 68455 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-05-21 01:25:02.691  INFO 68455 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 556 ms
+2022-05-21 01:25:02.703  INFO 68455 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2022-05-21 01:25:02.720  INFO 68455 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2022-05-21 01:25:02.721  INFO 68455 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost/db_springboot?serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true&useSSL=false'
+2022-05-21 01:25:02.758  INFO 68455 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-21 01:25:02.763  INFO 68455 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-05-21 01:25:02.935 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : alter table facturas drop foreign key FK1qiuk10rfkovhlfpsk7oic0v8
+2022-05-21 01:25:02.939  WARN 68455 --- [restartedMain] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table facturas drop foreign key FK1qiuk10rfkovhlfpsk7oic0v8" via JDBC Statement
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table facturas drop foreign key FK1qiuk10rfkovhlfpsk7oic0v8" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:318) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:468) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.3.jar:2.5.3]
+	at com.bolsadeideas.springboot.app.SpringBootEjemploJpaApplication.main(SpringBootEjemploJpaApplication.java:16) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-2.5.3.jar:2.5.3]
+Caused by: java.sql.SQLSyntaxErrorException: Table 'db_springboot.facturas' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:764) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-4.0.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-4.0.3.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	... 40 common frames omitted
+
+2022-05-21 01:25:02.939 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : alter table facturas_items drop foreign key FKdumnm9x14hjfp9fufn7q8389r
+2022-05-21 01:25:02.941  WARN 68455 --- [restartedMain] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table facturas_items drop foreign key FKdumnm9x14hjfp9fufn7q8389r" via JDBC Statement
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table facturas_items drop foreign key FKdumnm9x14hjfp9fufn7q8389r" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:318) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:468) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.3.jar:2.5.3]
+	at com.bolsadeideas.springboot.app.SpringBootEjemploJpaApplication.main(SpringBootEjemploJpaApplication.java:16) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-2.5.3.jar:2.5.3]
+Caused by: java.sql.SQLSyntaxErrorException: Table 'db_springboot.facturas_items' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:764) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-4.0.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-4.0.3.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	... 40 common frames omitted
+
+2022-05-21 01:25:02.941 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : alter table facturas_items drop foreign key FKnv8ijya20df661b0p6drqcx7u
+2022-05-21 01:25:02.943  WARN 68455 --- [restartedMain] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table facturas_items drop foreign key FKnv8ijya20df661b0p6drqcx7u" via JDBC Statement
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table facturas_items drop foreign key FKnv8ijya20df661b0p6drqcx7u" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:318) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:468) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.3.jar:2.5.3]
+	at com.bolsadeideas.springboot.app.SpringBootEjemploJpaApplication.main(SpringBootEjemploJpaApplication.java:16) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-2.5.3.jar:2.5.3]
+Caused by: java.sql.SQLSyntaxErrorException: Table 'db_springboot.facturas_items' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:764) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-4.0.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-4.0.3.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	... 40 common frames omitted
+
+2022-05-21 01:25:02.948 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : alter table roles drop foreign key FK97mxvrajhkq19dmvboprimeg1
+2022-05-21 01:25:02.951  WARN 68455 --- [restartedMain] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table roles drop foreign key FK97mxvrajhkq19dmvboprimeg1" via JDBC Statement
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table roles drop foreign key FK97mxvrajhkq19dmvboprimeg1" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:318) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:468) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.9.jar:5.3.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-2.5.3.jar:2.5.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.3.jar:2.5.3]
+	at com.bolsadeideas.springboot.app.SpringBootEjemploJpaApplication.main(SpringBootEjemploJpaApplication.java:16) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-2.5.3.jar:2.5.3]
+Caused by: java.sql.SQLSyntaxErrorException: Table 'db_springboot.roles' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:764) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-java-8.0.26.jar:8.0.26]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-4.0.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-4.0.3.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54) ~[hibernate-core-5.4.32.Final.jar:5.4.32.Final]
+	... 40 common frames omitted
+
+2022-05-21 01:25:02.952 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : drop table if exists clientes
+2022-05-21 01:25:02.954 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : drop table if exists facturas
+2022-05-21 01:25:02.956 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : drop table if exists facturas_items
+2022-05-21 01:25:02.957 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : drop table if exists productos
+2022-05-21 01:25:02.960 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : drop table if exists roles
+2022-05-21 01:25:02.961 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : drop table if exists users
+2022-05-21 01:25:02.963 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : create table clientes (id bigint not null auto_increment, apellido varchar(255), create_at date, email varchar(255), nombre varchar(255), primary key (id)) engine=InnoDB
+2022-05-21 01:25:02.974 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : create table facturas (id bigint not null auto_increment, create_at date, descripcion varchar(255), observacion varchar(255), cliente_id bigint, primary key (id)) engine=InnoDB
+2022-05-21 01:25:02.983 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : create table facturas_items (id bigint not null auto_increment, cantidad integer, producto_id bigint, factura_id bigint, primary key (id)) engine=InnoDB
+2022-05-21 01:25:02.988 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : create table productos (id bigint not null auto_increment, create_at date, nombre varchar(255), precio double precision, primary key (id)) engine=InnoDB
+2022-05-21 01:25:02.992 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : create table roles (id bigint not null auto_increment, rol varchar(255), user_id bigint, primary key (id)) engine=InnoDB
+2022-05-21 01:25:02.996 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : create table users (id bigint not null auto_increment, enabled bit, password varchar(60), username varchar(45), primary key (id)) engine=InnoDB
+2022-05-21 01:25:02.999 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : alter table roles add constraint UK7hsvbmso4xk56d60v8j4tsnex unique (user_id, rol)
+2022-05-21 01:25:03.003 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : alter table users add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username)
+2022-05-21 01:25:03.006 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : alter table facturas add constraint FK1qiuk10rfkovhlfpsk7oic0v8 foreign key (cliente_id) references clientes (id)
+2022-05-21 01:25:03.013 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : alter table facturas_items add constraint FKdumnm9x14hjfp9fufn7q8389r foreign key (producto_id) references productos (id)
+2022-05-21 01:25:03.021 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : alter table facturas_items add constraint FKnv8ijya20df661b0p6drqcx7u foreign key (factura_id) references facturas (id)
+2022-05-21 01:25:03.030 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : alter table roles add constraint FK97mxvrajhkq19dmvboprimeg1 foreign key (user_id) references users (id)
+2022-05-21 01:25:03.039  INFO 68455 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'file:/Users/joseplasenciavillarejo/git/Curso-Spring-Boot-JPA/target/classes/import.sql'
+2022-05-21 01:25:03.042 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(1,'Andres','Guzman','plas@gmail.com','2019-05-25')
+2022-05-21 01:25:03.044 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(2,'Pepe','Mariagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.044 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(3,'123','Mariagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.045 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(4,'zxz','fb','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.045 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(5,'Peeterpe','ryuyweqt','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.046 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(6,'Peptyuyte','Masfdsfdsriagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.047 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(7,'kjljk','Marzvbvcxvzxciagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.048 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(8,'zxz','fb','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.048 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(9,'Peeterpe','ryuyweqt','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.049 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(10,'Peptyuyte','Masfdsfdsriagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.051 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(11,'kjljk','Marzvbvcxvzxciagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.052 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(12,'zxz','fb','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.052 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(13,'Peeterpe','ryuyweqt','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.053 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(14,'Peptyuyte','Masfdsfdsriagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.054 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(15,'kjljk','Marzvbvcxvzxciagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.054 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(16,'zxz','fb','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.055 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(17,'Peeterpe','ryuyweqt','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.056 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(18,'Peptyuyte','Masfdsfdsriagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.058 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(19,'kjljk','Marzvbvcxvzxciagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.059 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(20,'zxz','fb','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.060 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(21,'Peeterpe','ryuyweqt','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.060 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(22,'Peptyuyte','Masfdsfdsriagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.061 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(23,'kjljk','Marzvbvcxvzxciagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.062 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(24,'zxz','fb','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.062 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(25,'Peeterpe','ryuyweqt','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.063 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(26,'Peptyuyte','Masfdsfdsriagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.064 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES(27,'kjljk','Marzvbvcxvzxciagr','pronq@gmail.com','2017-02-01')
+2022-05-21 01:25:03.064 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO productos (nombre, precio, create_at) VALUES('Panasonic Pantalla LCD', 259745, NOW())
+2022-05-21 01:25:03.065 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO productos (nombre, precio, create_at) VALUES('Sony Camara digital DSW-897', 350745, NOW())
+2022-05-21 01:25:03.065 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO productos (nombre, precio, create_at) VALUES('Apple ipod shuffle', 4879745, NOW())
+2022-05-21 01:25:03.066 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO productos (nombre, precio, create_at) VALUES('Sony Noebook z710', 259745, NOW())
+2022-05-21 01:25:03.066 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO productos (nombre, precio, create_at) VALUES('Bianchi jiqi ajk', 259745, NOW())
+2022-05-21 01:25:03.067 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO productos (nombre, precio, create_at) VALUES('zcvadq', 259745, NOW())
+2022-05-21 01:25:03.067 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO productos (nombre, precio, create_at) VALUES('Pokemon destripador', 259745, NOW())
+2022-05-21 01:25:03.068 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO productos (nombre, precio, create_at) VALUES('Packa Dell 123 jos', 259745, NOW())
+2022-05-21 01:25:03.068 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,1, NOW())
+2022-05-21 01:25:03.070 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura de Golosinas', null,2, NOW())
+2022-05-21 01:25:03.070 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de ordernador', null,3, NOW())
+2022-05-21 01:25:03.071 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de mesa', null,4, NOW())
+2022-05-21 01:25:03.071 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de ping pong', null,5, NOW())
+2022-05-21 01:25:03.072 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de carteles de agua', null,6, NOW())
+2022-05-21 01:25:03.073 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,7, NOW())
+2022-05-21 01:25:03.073 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,8, NOW())
+2022-05-21 01:25:03.074 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,9, NOW())
+2022-05-21 01:25:03.075 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,10, NOW())
+2022-05-21 01:25:03.075 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,11, NOW())
+2022-05-21 01:25:03.076 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura equipos de oficina', null,12, NOW())
+2022-05-21 01:25:03.077 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura Bicicleta', 'Alguna nota importante',1, NOW())
+2022-05-21 01:25:03.078 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura Moto', 'Alguna nota importante',2, NOW())
+2022-05-21 01:25:03.079 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura Coche', 'Alguna nota importante',3, NOW())
+2022-05-21 01:25:03.079 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura PC', 'Alguna nota importante',4, NOW())
+2022-05-21 01:25:03.080 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES('Factura Letra Piso', 'Alguna nota importante',5, NOW())
+2022-05-21 01:25:03.080 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(1,1,1)
+2022-05-21 01:25:03.081 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(2,2,4)
+2022-05-21 01:25:03.082 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(8,3,5)
+2022-05-21 01:25:03.082 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(3,4,7)
+2022-05-21 01:25:03.083 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(4,5,1)
+2022-05-21 01:25:03.084 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(5,6,1)
+2022-05-21 01:25:03.085 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(6,7,1)
+2022-05-21 01:25:03.085 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(7,8,1)
+2022-05-21 01:25:03.086 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(3,2,6)
+2022-05-21 01:25:03.086 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO users (username, password, enabled) VALUES ('jose','$2a$10$Rs431XSXPZc3vvX8vLFQCerQTpfitN4Q4HkQlyRaQslXJWh6tXvrq',1)
+2022-05-21 01:25:03.087 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO users (username, password, enabled) VALUES ('admin','$2a$10$Cr8senR9U/STePC/oCGfu.SVdaBnQ9bGXpymRbHICD5gTdD9hFV7y',1)
+2022-05-21 01:25:03.088 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO users (username, password, enabled) VALUES ('prueba','$2a$10$Cr8senR9U/STePC/oCGfu.SVdaBnQ9bGXpymRbHICD5gTdD9hFV7y',1)
+2022-05-21 01:25:03.088 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO roles (user_id, rol) VALUES (1, 'ROLE_USER')
+2022-05-21 01:25:03.089 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO roles (user_id, rol) VALUES (2, 'ROLE_USER')
+2022-05-21 01:25:03.089 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO roles (user_id, rol) VALUES (2, 'ROLE_ADMIN')
+2022-05-21 01:25:03.090 DEBUG 68455 --- [restartedMain] org.hibernate.SQL                        : INSERT INTO roles (user_id, rol) VALUES (3, 'ROLE_ADMIN')
+2022-05-21 01:25:03.090  INFO 68455 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-21 01:25:03.092  INFO 68455 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-21 01:25:03.137  WARN 68455 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-21 01:25:03.679  INFO 68455 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@a66f03c, org.springframework.security.web.context.SecurityContextPersistenceFilter@3654c094, org.springframework.security.web.header.HeaderWriterFilter@11ebb0bd, org.springframework.security.web.csrf.CsrfFilter@562e5470, org.springframework.security.web.authentication.logout.LogoutFilter@5b6294bb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6e1599a3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@79d8c7d6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@35fafe08, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4eea7e5e, org.springframework.security.web.session.SessionManagementFilter@12fd8b6f, org.springframework.security.web.access.ExceptionTranslationFilter@635582da, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@683ca954]
+2022-05-21 01:25:03.694  INFO 68455 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-05-21 01:25:03.712  INFO 68455 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8082 (http) with context path ''
+2022-05-21 01:25:03.722  INFO 68455 --- [restartedMain] c.b.s.a.SpringBootEjemploJpaApplication  : Started SpringBootEjemploJpaApplication in 1.763 seconds (JVM running for 43.416)
+2022-05-21 01:25:04.010  INFO 68455 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2022-05-21 01:25:17.456  INFO 68455 --- [http-nio-8082-exec-1] o.apache.tomcat.util.http.parser.Cookie  : A cookie header was received [2022-04-23; fonce_current_user=1; _sp_id.1fff=8af990d3-c17f-4b21-8cd0-032c7da89595.1650480042.5.1650667320.1650584997.68665082-edf8-4c4b-8b2b-34c85f6b9ad5; _xsrf=2|771a53c0|9c4f08886fdf3c8adc12848fdea48f62|1652714481; username-localhost-8889="2|1:0|10:1652727050|23:username-localhost-8889|44:NWEyMDI1NWE2NTQ3NDI4MWFlZWUzOTlkNjQzZDJiZGI=|162fd4a066195895716a266db6a37782e1880dac9a71733a11efa7cd1dd6ab4e"; JSESSIONID=DDE3D8B80BF778B3CC225131FC6A00CB] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+2022-05-21 01:25:17.464  INFO 68455 --- [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-21 01:25:17.464  INFO 68455 --- [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-05-21 01:25:17.466  INFO 68455 --- [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2022-05-21 01:25:22.097  INFO 68455 --- [RMI TCP Connection(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2022-05-21 01:25:22.141  INFO 68455 --- [RMI TCP Connection(11)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-21 01:25:22.143  INFO 68455 --- [RMI TCP Connection(11)-127.0.0.1] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2022-05-21 01:25:22.144 DEBUG 68455 --- [RMI TCP Connection(11)-127.0.0.1] org.hibernate.SQL                        : alter table facturas drop foreign key FK1qiuk10rfkovhlfpsk7oic0v8
+2022-05-21 01:25:22.159 DEBUG 68455 --- [RMI TCP Connection(11)-127.0.0.1] org.hibernate.SQL                        : alter table facturas_items drop foreign key FKdumnm9x14hjfp9fufn7q8389r
+2022-05-21 01:25:22.167 DEBUG 68455 --- [RMI TCP Connection(11)-127.0.0.1] org.hibernate.SQL                        : alter table facturas_items drop foreign key FKnv8ijya20df661b0p6drqcx7u
+2022-05-21 01:25:22.172 DEBUG 68455 --- [RMI TCP Connection(11)-127.0.0.1] org.hibernate.SQL                        : alter table roles drop foreign key FK97mxvrajhkq19dmvboprimeg1
+2022-05-21 01:25:22.176 DEBUG 68455 --- [RMI TCP Connection(11)-127.0.0.1] org.hibernate.SQL                        : drop table if exists clientes
+2022-05-21 01:25:22.178 DEBUG 68455 --- [RMI TCP Connection(11)-127.0.0.1] org.hibernate.SQL                        : drop table if exists facturas
+2022-05-21 01:25:22.180 DEBUG 68455 --- [RMI TCP Connection(11)-127.0.0.1] org.hibernate.SQL                        : drop table if exists facturas_items
+2022-05-21 01:25:22.182 DEBUG 68455 --- [RMI TCP Connection(11)-127.0.0.1] org.hibernate.SQL                        : drop table if exists productos
+2022-05-21 01:25:22.183 DEBUG 68455 --- [RMI TCP Connection(11)-127.0.0.1] org.hibernate.SQL                        : drop table if exists roles
+2022-05-21 01:25:22.185 DEBUG 68455 --- [RMI TCP Connection(11)-127.0.0.1] org.hibernate.SQL                        : drop table if exists users
+2022-05-21 01:25:22.187  INFO 68455 --- [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2022-05-21 01:25:22.188  INFO 68455 --- [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
