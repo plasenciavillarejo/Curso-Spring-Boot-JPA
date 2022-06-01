@@ -53,7 +53,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Controller
 /*
- * Usamos sesiones para guardar el id del cliente cuando se invoca el método
+ *  Usamos sesiones para guardar el id del cliente cuando se invoca el método
  * crear o editar (método get) Obtenemos el objeto cliente, lo guarda en le
  * sesión y lo pasa a la vista de está forma todos los datos pasados a la vista
  * quedan persistentes hasta que se envíe al método guardar que posteriormente
