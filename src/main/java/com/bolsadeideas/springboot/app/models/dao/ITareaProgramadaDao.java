@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.bolsadeideas.springboot.app.models.entity.Shedlock;
 
@@ -13,7 +14,7 @@ public interface ITareaProgramadaDao extends JpaRepository<Shedlock, String>{
 	public Shedlock buscarTareaBBDD();
 	
 	@Modifying
-	@Query("delete from #{#entityName} b where b.name like'%:name'")
-	public void borrarEntidad(@Param("name") String name);
+	@Query(value ="delete from #{#entityName} b where b.name like'%:name'")
+	public void borrarEntidad(@PathVariable("name") String name);
 	
 }
