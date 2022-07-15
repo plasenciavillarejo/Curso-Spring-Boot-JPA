@@ -4,9 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
+
+@EnableScheduling
 @SpringBootApplication
+/* El parámetro defaultLockAtMostFor especifica la cantidad de tiempo predeterminada que se debe mantener el 
+ * bloqueo en caso de que el nodo en ejecución muera. Utiliza el formato de duración ISO8601.*/
+@EnableSchedulerLock(defaultLockAtMostFor = "PT30S")
 public class SpringBootEjemploJpaApplication  implements CommandLineRunner{
 
 	@Autowired
