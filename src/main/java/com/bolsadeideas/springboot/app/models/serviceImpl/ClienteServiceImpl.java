@@ -1,4 +1,4 @@
-package com.bolsadeideas.springboot.app.models.service;
+package com.bolsadeideas.springboot.app.models.serviceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +21,7 @@ import com.bolsadeideas.springboot.app.models.entity.Factura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
 import com.bolsadeideas.springboot.app.models.entity.Role;
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
+import com.bolsadeideas.springboot.app.models.service.IClientService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
